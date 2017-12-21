@@ -1,0 +1,34 @@
+Source:
+https://gist.githubusercontent.com/agonzalezro/1bf818c2db629d7cce0b/raw/f73777dbff3e0e36260c3dd03734f45a13e9b994/spacemacs_key_bindings.md
+
+- `SPC h`
+- `SPC ?`: search keybinding
+- `SPC f e h`: help about current layer
+- `SPC T h`: themes
+- `SPC m g g`: go to definition
+- `SPC m t [p|P|s|t]`: run tests
+- `SPC a k`: launch paradox (package manager)
+- `SPC t -`:	lock the cursor at the center of the screen
+- `SPC SPC a`: avy word search
+- `SPC w =`:	balance split windows
+- `SPC w -`: horizontal split
+- `SPC w /`: vertical split
+- `SPC t g`: toggle golden ratio (auto resize of windows)
+- `SPC TAB`: choose prev buffer
+- `SPC b h`: buffer list
+- `SPC f t`: open neotree (`|` and `-` to open in splits)
+- `SPC p t`: DITTO but in the project dir
+- `SPC s [a|g|k|t] b`: search using different tools
+- `SPC s c`: clear search. I tend to use `/asdasdadfsd`
+- `SPC x ...`: text related stuff. Ex: `wc` is going to do wod analysis
+- `SPC : dotspacemacs-smartparens-strict-mode`: strict mode for smart parents
+- `SPC ;`: {,un}comment
+- `SPC p !`: run command in project
+- `SPC p a`: choose between tests and code file
+- `SPC p c`: compile project using projectile // no idea how to use this yet
+- `SPC c C`: compile using your own command
+- `SPC c r`: recompile
+- `SPC j =`: auto indent whole file
+- `C-x C-v`: reload current file from your local copy. 
+- `C-x arrows`: move between buffers.
+- `Shift-Tab`: fold sections.
