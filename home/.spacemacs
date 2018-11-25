@@ -31,15 +31,10 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     ;; Navigation
      ibuffer
-     ;; Text edit
      markdown
-     restructuredtext
-     ;; Config edit
      yaml
      csv
-     ;; Org mode
      org
      (shell :variables
             shell-default-height 30
@@ -58,12 +53,11 @@ values."
      spell-checking
      syntax-checking
      version-control
-     pyhton
-     eyebrowse
+     ;; pyhton
+     ;; eyebrowse
      sql
      python
      semantic
-     vim-tmux-navigator
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -306,7 +300,6 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  (add-to-list 'org-modules 'org-habit)
   )
 
 (defun dotspacemacs/user-config ()
@@ -316,13 +309,20 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (setq-default dotspacemacs-configuration-layers '(
-    (ibuffer :variables ibuffer-group-buffers-by 'projects)))
+  ;; (add-to-list 'org-modules 'org-habit t)
+  (setq org-modules (quote (org-habit)))
+  (setq org-agenda-files '("~/Dropbox/org"))
+  (setq org-agenda-start-on-weekday 7)
+  ;; (setq-default dotspacemacs-configuration-layers '(
+  ;;   (ibuffer :variables ibuffer-group-buffers-by 'projects)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 (custom-set-variables
+ ;; '(org-habit-following-days 4)
+ ;; '(org-habit-graph-column 60)
+ ;; '(org-habit-preceding-days 7)
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
