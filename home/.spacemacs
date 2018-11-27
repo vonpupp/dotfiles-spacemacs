@@ -133,6 +133,8 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil then Spacelpa repository is the primary source to install
    ;; a locked version of packages. If nil then Spacemacs will install the
    ;; latest version of packages from MELPA. (default nil)
+   ;; Ideally I would like to use spacelpa but it breaks. More info:
+   ;; https://www.reddit.com/r/spacemacs/comments/7yvbqz/is_it_worth_to_use_develop_branch_instead_of/
    dotspacemacs-use-spacelpa nil
 
    ;; If non-nil then verify the signature for downloaded Spacelpa archives.
@@ -470,9 +472,34 @@ before packages are loaded."
   ;; ~/Dropbox/org/proj/music/scales/d-scales.org
   ;; ~/Dropbox/org/proj/music/instruments/sax.org
   ;; ~/Dropbox/org/proj/music/instruments/guitar.org
-  (setq org-agenda-files '("~/Dropbox/org/life" "~/Dropbox/org/proj"))
   (setq org-modules (quote (org-habit)))
+  (setq org-agenda-files '("~/Dropbox/org/life" "~/Dropbox/org/proj"))
   (setq org-agenda-start-on-weekday 7)
+  ;; Capture Templates for TODO tasks
+  (setq org-capture-templates
+    '(
+
+      ;; Templates for the TASKS keyword sequence
+      ("t" "Tasks")
+
+      ;; TEMPLATE A
+      ("th" "SMART Habit" entry (file "~/Dropbox/org/capture.org")
+       "* REPEAT %^{Describe the task}       :HABIT:
+  %?
+  SCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d>>\")
+  :STYLE:    habit
+  :SMART:
+  :Specific:   %^{What is the purpose of this goal}
+  :Measurable: %^{How can you measure it}
+  :Activity:   %^{What activity do we need to do}
+  :Resources:  %^{What resources do we need}
+  :Timebox:    %^{What time do we need to spend on that}
+  :Reviewed:
+  :LOGBOOK:
+  - Recorded: %U
+  :HoursWeek:  Get it automatically
+  :END:" :empty-lines 1)
+  ))
 
   )
 
@@ -488,9 +515,10 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (yasnippet-snippets yapfify xterm-color unfill smeargle shell-pop ranger pyvenv pytest pyenv-mode py-isort pippel pipenv pip-requirements orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-brain mwim multi-term mmm-mode markdown-toc markdown-mode magit-svn magit-gitflow live-py-mode importmagic epc ctable concurrent deferred htmlize helm-pydoc helm-org-rifle helm-gitignore helm-git-grep helm-company helm-c-yasnippet gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-org evil-magit magit magit-popup git-commit ghub treepy graphql with-editor eshell-z eshell-prompt-extras esh-help diff-hl cython-mode company-statistics company-anaconda company browse-at-remote auto-yasnippet yasnippet auto-dictionary anaconda-mode pythonic ac-ispell auto-complete ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org symon string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file neotree nameless move-text macrostep lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line))))
+    (yasnippet-snippets yapfify xterm-color ws-butler writeroom-mode visual-fill-column winum volatile-highlights vi-tilde-fringe uuidgen unfill toc-org symon string-inflection spaceline-all-the-icons spaceline powerline smeargle shell-pop restart-emacs ranger rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pippel pipenv pip-requirements persp-mode password-generator paradox spinner overseer orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-bullets org-brain open-junk-file neotree nameless mwim multi-term move-text mmm-mode markdown-toc markdown-mode magit-svn magit-gitflow macrostep lorem-ipsum live-py-mode link-hint indent-guide importmagic epc ctable concurrent deferred hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-xref helm-themes helm-swoop helm-pydoc helm-purpose window-purpose imenu-list helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore request helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit ghub treepy graphql with-editor evil-lisp-state evil-lion evil-indent-plus evil-iedit-state iedit evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens smartparens paredit evil-args evil-anzu anzu eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump doom-modeline eldoc-eval shrink-path all-the-icons memoize diff-hl define-word cython-mode counsel-projectile projectile counsel swiper ivy pkg-info epl company-statistics company-anaconda company column-enforce-mode clean-aindent-mode centered-cursor-mode browse-at-remote auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed anaconda-mode pythonic f dash s aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core ac-ispell auto-complete popup which-key use-package pcre2el org-plus-contrib hydra font-lock+ evil goto-chg undo-tree dotenv-mode diminish bind-map bind-key async))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
