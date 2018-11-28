@@ -501,6 +501,14 @@ before packages are loaded."
   :END:" :empty-lines 1)
   ))
 
+  ;; ----------------------------------------------------------------
+  ;; Edit server
+  ;; See: https://www.emacswiki.org/emacs/Edit_with_Emacs
+  ;; ----------------------------------------------------------------
+  (add-to-list 'load-path "~/.spacemacs.d/thirdparty")
+  (require 'edit-server)
+  (edit-server-start)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
