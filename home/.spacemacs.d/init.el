@@ -68,7 +68,11 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(
+                                      keychain
+                                      keychain-environment
+                                      pinentry
+                                      )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -463,18 +467,38 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
+  ;; (require 'helm-descbinds)
+  ;; (helm-descbinds-mode)
+
+  ;; ----------------------------------------------------------------
+  ;; Pinentry
+  ;; See: https://emacs.stackexchange.com/a/32882
+  ;; See: https://github.com/syl20bnr/spacemacs-elpa-mirror/blob/master/gnu/pinentry-readme.txt
+  ;; ----------------------------------------------------------------
+  (setq epa-pinentry-mode 'loopback)
+
   ;; ----------------------------------------------------------------
   ;; Org mode
   ;; ----------------------------------------------------------------
-  ;; Technical debt: recursion into multiple dirs, example:
-  ;; ~/Dropbox/org/proj/trading/trading.org
-  ;; ~/Dropbox/org/proj/music/scales/g-scales.org
-  ;; ~/Dropbox/org/proj/music/scales/d-scales.org
-  ;; ~/Dropbox/org/proj/music/instruments/sax.org
-  ;; ~/Dropbox/org/proj/music/instruments/guitar.org
   (setq org-modules (quote (org-habit)))
   (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/" "\\.org$"))
   (setq org-agenda-start-on-weekday 7)
+  (setq org-refile-targets (quote ((org-agenda-files :level . 1))))
+  (setq org-refile-use-outline-path (quote full-file-path))
+  (setq org-refile-allow-creating-parent-nodes (quote confirm))
+  (setq org-todo-keyword-faces
+        '(("TODO" . (:foreground "DarkOrange1" :weight bold))
+          ("SOMEDAY" . (:foreground "sea green"))
+          ("DONE" . (:foreground "light sea green"))
+          ("CANCELLED" . (:foreground "forest green"))
+          ("WAITING" . (:foreground "blue"))
+         ))
+  (setq org-tag-faces
+        '(("ME" . (:foreground "forest green" :weight bold))
+          ("SPIRIT" . (:foreground "lime green"))
+          ("MIND" . (:foreground "forest green"))
+          ("BODY" . (:foreground "yellow"))
+         ))
   ;; Capture Templates for TODO tasks
   (setq org-capture-templates
     '(
