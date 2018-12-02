@@ -499,9 +499,27 @@ before packages are loaded."
           ("MIND" . (:foreground "forest green"))
           ("BODY" . (:foreground "yellow"))
          ))
+
+  ;; See: https://github.com/sprig/org-capture-extension
+  (defun transform-square-brackets-to-round-ones(string-to-transform)
+    "Transforms [ into ( and ] into ), other chars left unchanged."
+    (concat
+     (mapcar #'(lambda (c) (if (equal c ?[) ?\( (if (equal c ?]) ?\) c))) string-to-transform))
+    )
+
   ;; Capture Templates for TODO tasks
   (setq org-capture-templates
     '(
+      ("p" "Protocol" entry (file+headline ,(concat org-directory "~/Dropbox/org/capture.org") "Inbox")
+        "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+      ("L" "Protocol Link" entry (file+headline ,(concat org-directory "~/Dropbox/org/capture.org") "Inbox")
+        "* %? [[%:link][%:description]] \nCaptured On: %U")
+
+      ;; ;; See: https://github.com/sprig/org-capture-extension
+      ;; ("p" "Protocol" entry (file+headline ,(concat org-directory "~/Dropbox/org/capture.org") "Inbox")
+      ;;  "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+	    ;; ("L" "Protocol Link" entry (file+headline ,(concat org-directory "~/Dropbox/org/capture.org") "Inbox")
+      ;;  "* %? [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n")
 
       ;; Templates for the TASKS keyword sequence
       ("t" "Tasks")
