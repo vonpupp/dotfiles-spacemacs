@@ -47,7 +47,8 @@ This function should only modify configuration layer settings."
      markdown
      multiple-cursors
      neotree
-     org
+     (org :variables
+          org-enable-org-journal-support t)
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -71,6 +72,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages '(
                                       keychain-environment
                                       pinentry
+                                      org-journal
                                       )
 
    ;; A list of packages that cannot be updated.

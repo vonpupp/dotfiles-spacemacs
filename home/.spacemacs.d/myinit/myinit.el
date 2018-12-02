@@ -5,8 +5,11 @@
   ;; ----------------------------------------------------------------
   ;; Org mode
   ;; ----------------------------------------------------------------
+  ;; MODULES
   (setq org-modules (quote (org-habit)))
+  ;; LOG
   (setq org-log-into-drawer "LOGBOOK")
+  ;; AGENDA
   (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/" "\\.org$"))
   (setq org-agenda-start-on-weekday 7)
   (setq org-agenda-custom-commands
@@ -21,10 +24,21 @@
        (tags-todo "RELATING"
                   ((org-agenda-overriding-header "Relating tag"))))
       nil nil))))
+  ;; REFILE
   (setq org-refile-targets (quote ((org-agenda-files :level . 1))))
   (setq org-refile-use-outline-path (quote full-file-path))
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
+  ;; JOURNAL
+  ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bemacs/org#org-journal-support
+  (setq org-journal-dir "~/Dropbox/org/journal/")
+  (setq org-journal-file-format "%Y-%m-%d")
+  (setq org-journal-date-prefix "#+TITLE: ")
+  (setq org-journal-date-format "%A, %B %d %Y")
+  (setq org-journal-time-prefix "* ")
+  (setq org-journal-time-format "")
+  ;; TODO
   (setq org-todo-keywords '((type "TODO" "NEXT" "WAITING" "|" "DONE" "CANCELED")))
+  ;; TAGSS
   (setq org-tag-persistent-alist (quote ((:startgroup)
                               ("@errand" . ?e)
                               ("@office" . ?o)
@@ -42,6 +56,7 @@
                               ("NOTE" . ?n)
                               ("CANCELLED" . ?c)
                               ("FLAGGED" . ??))))
+  ;; FACES
   (setq org-todo-keyword-faces
         '(("TODO" . (:foreground "DarkOrange1" :weight bold))
           ("SOMEDAY" . (:foreground "sea green"))
