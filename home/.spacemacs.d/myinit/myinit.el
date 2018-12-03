@@ -5,29 +5,58 @@
   ;; ----------------------------------------------------------------
   ;; Org mode
   ;; ----------------------------------------------------------------
+
   ;; MODULES
   (setq org-modules (quote (org-habit)))
+
   ;; LOG
   (setq org-log-into-drawer "LOGBOOK")
+
   ;; AGENDA
   (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/" "\\.org$"))
   (setq org-agenda-start-on-weekday 7)
+  ;; (setq org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("HABIT" "REPEAT")))
   (setq org-agenda-custom-commands
-   (quote
-    (("n" "Agenda and all TODOs"
-      ((agenda "" nil)
-       (alltodo "" nil))
-      nil)
+   (quote (
+     ;; gtd base states
+     ("d" "TODO state" todo "TODO"
+      ((org-agenda-overriding-header "TODO tasks")))
+     ("s" "SOMEDAY state" todo "SOMEDAY"
+      ((org-agenda-overriding-header "SOMEDAY tasks")))
+     ("n" "NEXT state" todo "NEXT"
+      ((org-agenda-overriding-header "NEXT tasks")))
+     ("w" "WAITING state" todo "WAITING"
+      ((org-agenda-overriding-header "WAITING tasks")))
+     ("p" "PROJ state" todo "PROJ"
+      ((org-agenda-overriding-header "PROJ tasks")))
+     ("d" "DONE state" todo "DONE"
+      ((org-agenda-overriding-header "DONE tasks")))
+     ("c" "CANCELLED state" todo "CANCELLED"
+      ((org-agenda-overriding-header "CANCELLED tasks")))
+     ("k" "SKIPPED state" todo "SKIPPED"
+      ((org-agenda-overriding-header "SKIPPED tasks")))
+     ;; other filters
+     ("l" "All actionable tasks" todo "TODO|NEXT|WAITING|PROJ"
+      ((org-agenda-overriding-header "TODO tasks")))
+     ("1" "ME" tags-todo "+ME"
+      ((org-agenda-overriding-header "ME tag")))
+     ("2" "RELATING" tags-todo "+RELATING"
+      ((org-agenda-overriding-header "RELATING tag")))
+     ("3" "DOING" tags-todo "+DOING"
+      ((org-agenda-overriding-header "DOING tag")))
      ("i" "Important things to do"
       ((tags-todo "ME"
                   ((org-agenda-overriding-header "Me tag")))
        (tags-todo "RELATING"
                   ((org-agenda-overriding-header "Relating tag"))))
-      nil nil))))
+      nil nil)
+  )))
+
   ;; REFILE
   (setq org-refile-targets (quote ((org-agenda-files :level . 1))))
   (setq org-refile-use-outline-path (quote full-file-path))
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
+
   ;; JOURNAL
   ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bemacs/org#org-journal-support
   (setq org-journal-dir "~/Dropbox/org/journal/")
@@ -39,6 +68,7 @@
   ;; TODO
   (setq org-todo-keywords '((type "TODO" "NEXT" "WAITING" "|" "DONE" "CANCELED")))
   ;; TAGSS
+  ;; TAGS
   (setq org-tag-persistent-alist (quote ((:startgroup)
                               ("@errand" . ?e)
                               ("@office" . ?o)
@@ -56,6 +86,7 @@
                               ("NOTE" . ?n)
                               ("CANCELLED" . ?c)
                               ("FLAGGED" . ??))))
+
   ;; FACES
   (setq org-todo-keyword-faces
         '(("TODO" . (:foreground "DarkOrange1" :weight bold))
@@ -72,11 +103,11 @@
          ))
 
   ;; See: https://github.com/sprig/org-capture-extension
-  (defun transform-square-brackets-to-round-ones(string-to-transform)
-    "Transforms [ into ( and ] into ), other chars left unchanged."
-    (concat
-     (mapcar #'(lambda (c) (if (equal c ?[) ?\( (if (equal c ?]) ?\) c))) string-to-transform))
-    )
+  ;; (defun transform-square-brackets-to-round-ones(string-to-transform)
+  ;;   "Transforms [ into ( and ] into ), other chars left unchanged."
+  ;;   (concat
+  ;;    (mapcar #'(lambda (c) (if (equal c ?[) ?\( (if (equal c ?]) ?\) c))) string-to-transform))
+  ;;   )
 
   ;; Capture Templates for TODO tasks
   (setq org-capture-templates
