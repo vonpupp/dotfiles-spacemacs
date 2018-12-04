@@ -71,29 +71,34 @@
   (setq org-journal-time-format "")
 
   ;; STATES
-  ;; (setq org-todo-keywords '((type "TODO" "NEXT" "WAITING" "|" "DONE" "CANCELED")))
-  (setq org-todo-keywords '(
-                            (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-                            (sequence "HABIT(x)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING")))
+  ;; TIP: ~M-x org-mode-restart~ refreshes the org-mode cache
+  (setq org-todo-keywords '((type "TODO(d/!)" "SOMEDAY(s/!)" "NEXT(n/!)" "WAITING(w@/!)" "PROJ(p)" "REPEAT(r/!)" "MEETING(m/!)" "|" "DONE(d)" "CANCELLED(c@/!)" "SKIPPED(k@/!)")))
+  ;; (setq org-todo-keywords '(
+  ;;   (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+  ;;   (sequence "HABIT(x)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING")
+  ;; ))
 
   ;; TAGS
-  (setq org-tag-persistent-alist (quote ((:startgroup)
-                              ("@errand" . ?e)
-                              ("@office" . ?o)
-                              ("@home" . ?H)
-                              ("@farm" . ?f)
-                              (:endgroup)
-                              ("WAITING" . ?w)
-                              ("HOLD" . ?h)
-                              ("PERSONAL" . ?P)
-                              ("WORK" . ?W)
-                              ("FARM" . ?F)
-                              ("ORG" . ?O)
-                              ("NORANG" . ?N)
-                              ("crypt" . ?E)
-                              ("NOTE" . ?n)
-                              ("CANCELLED" . ?c)
-                              ("FLAGGED" . ??))))
+  (setq org-tag-persistent-alist (quote (
+    (:startgroup)
+    ("@errand" . ?e)
+    ("@office" . ?o)
+    ("@home" . ?H)
+    ("@farm" . ?f)
+    (:endgroup)
+    ("TODO" . ?t)
+    ("SOMEDAY" . ?s)
+    ("NEXT" . ?n)
+    ("WAITING" . ?w)
+    ("PROJ" . ?p)
+    ("FARM" . ?F)
+    ("ORG" . ?O)
+    ("NORANG" . ?N)
+    ("crypt" . ?E)
+    ("NOTE" . ?n)
+    ("CANCELLED" . ?c)
+    ("FLAGGED" . ??)
+  )))
 
   ;; FACES
   (setq org-todo-keyword-faces
