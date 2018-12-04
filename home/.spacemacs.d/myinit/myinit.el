@@ -5,6 +5,10 @@
   ;; ----------------------------------------------------------------
   ;; Org mode
   ;; ----------------------------------------------------------------
+  (if (memq window-system '(w32))
+      (setq my-home-dir "C:/Users/av")
+    (setq my-home-dir (expand-file-name "~")))
+  (setq org-directory (concat my-home-dir "/org/"))
 
   ;; MODULES
   (setq org-modules (quote (org-habit)))
@@ -13,7 +17,7 @@
   (setq org-log-into-drawer "LOGBOOK")
 
   ;; AGENDA
-  (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/" "\\.org$"))
+  (setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
   (setq org-agenda-start-on-weekday 7)
   ;; (setq org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("HABIT" "REPEAT")))
   (setq org-agenda-custom-commands
@@ -59,15 +63,19 @@
 
   ;; JOURNAL
   ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bemacs/org#org-journal-support
-  (setq org-journal-dir "~/Dropbox/org/journal/")
+  (setq org-journal-dir (concat org-directory "journal/"))
   (setq org-journal-file-format "%Y-%m-%d")
   (setq org-journal-date-prefix "#+TITLE: ")
   (setq org-journal-date-format "%A, %B %d %Y")
   (setq org-journal-time-prefix "* ")
   (setq org-journal-time-format "")
-  ;; TODO
-  (setq org-todo-keywords '((type "TODO" "NEXT" "WAITING" "|" "DONE" "CANCELED")))
-  ;; TAGSS
+
+  ;; STATES
+  ;; (setq org-todo-keywords '((type "TODO" "NEXT" "WAITING" "|" "DONE" "CANCELED")))
+  (setq org-todo-keywords '(
+                            (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+                            (sequence "HABIT(x)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING")))
+
   ;; TAGS
   (setq org-tag-persistent-alist (quote ((:startgroup)
                               ("@errand" . ?e)
@@ -112,22 +120,22 @@
   ;; Capture Templates for TODO tasks
   (setq org-capture-templates
     '(
-      ("p" "Protocol" entry (file+headline ,(concat org-directory "~/Dropbox/org/capture.org") "Inbox")
+      ("p" "Protocol" entry (file+headline ,(concat org-directory "capture.org") "Inbox")
         "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-      ("L" "Protocol Link" entry (file+headline ,(concat org-directory "~/Dropbox/org/capture.org") "Inbox")
+      ("L" "Protocol Link" entry (file+headline ,(concat org-directory "capture.org") "Inbox")
         "* %? [[%:link][%:description]] \nCaptured On: %U")
 
       ;; ;; See: https://github.com/sprig/org-capture-extension
-      ;; ("p" "Protocol" entry (file+headline ,(concat org-directory "~/Dropbox/org/capture.org") "Inbox")
+      ;; ("p" "Protocol" entry (file+headline ,(concat org-directory "capture.org") "Inbox")
       ;;  "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-	    ;; ("L" "Protocol Link" entry (file+headline ,(concat org-directory "~/Dropbox/org/capture.org") "Inbox")
+	    ;; ("L" "Protocol Link" entry (file+headline ,(concat org-directory "capture.org") "Inbox")
       ;;  "* %? [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n")
 
       ;; Templates for the TASKS keyword sequence
       ("t" "Tasks")
 
       ;; TEMPLATE A
-      ("th" "SMART Habit" entry (file "~/Dropbox/org/capture.org")
+      ("th" "SMART Habit" entry (file (concat org-directory "capture.org"))
        "* REPEAT %^{Describe the task}       :HABIT:
   %?
   SCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d>>\")
