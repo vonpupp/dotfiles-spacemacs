@@ -5,10 +5,13 @@
   ;; ----------------------------------------------------------------
   ;; Org mode
   ;; ----------------------------------------------------------------
+
+  ;; PATH AND IMPORTANT FILES
   (if (memq window-system '(w32))
       (setq my-home-dir "C:/Users/av")
     (setq my-home-dir (expand-file-name "~")))
   (setq org-directory (concat my-home-dir "/org/"))
+  (setq org-default-capture-file (concat org-directory "capture.org"))
 
   ;; MODULES
   (setq org-modules (quote (org-habit)))
@@ -18,6 +21,8 @@
 
   ;; AGENDA
   (setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
+  ;; See: https://stackoverflow.com/a/29905161/1332764
+  (setq org-agenda-include-diary t)
   (setq org-agenda-start-on-weekday 7)
   ;; (setq org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("HABIT" "REPEAT")))
   (setq org-agenda-custom-commands
@@ -122,7 +127,7 @@
   ;;    (mapcar #'(lambda (c) (if (equal c ?[) ?\( (if (equal c ?]) ?\) c))) string-to-transform))
   ;;   )
 
-  ;; Capture Templates for TODO tasks
+  ;; CAPTURE
   (setq org-capture-templates
     '(
       ("p" "Protocol" entry (file+headline ,(concat org-directory "capture.org") "Inbox")
@@ -140,7 +145,7 @@
       ("t" "Tasks")
 
       ;; TEMPLATE A
-      ("th" "SMART Habit" entry (file (concat org-directory "capture.org"))
+      ("th" "SMART Habit" entry (file org-default-capture-file)
        "* REPEAT %^{Describe the task}       :HABIT:
   %?
   SCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d>>\")
