@@ -176,6 +176,26 @@
   ))
 
   ;; ----------------------------------------------------------------
+  ;; ERC
+  ;; ----------------------------------------------------------------
+  (setq erc-prompt-for-nickserv-password nil)
+  (setq erc-server-list '(
+         ("irc.freenode.net"
+           :port "6697"
+           :ssl t
+           :nick "vonpupp")
+  ;;       ("irc.oftc.net"
+  ;;         :port "6697"
+  ;;         :ssl t
+  ;;         :nick "vonpupp")
+  ))
+  (setq erc-autojoin-channels-alist '(
+    ("freenode.net" "#emacs" "#org-mode" "#spacemacs")
+  ;;  ("oftc.net" "#bitlbee")
+  ))
+  (setq erc-keywords '("vonpupp"))
+
+  ;; ----------------------------------------------------------------
   ;; Pinentry
   ;; See: https://emacs.stackexchange.com/a/32882
   ;; See: https://github.com/syl20bnr/spacemacs-elpa-mirror/blob/master/gnu/pinentry-readme.txt
