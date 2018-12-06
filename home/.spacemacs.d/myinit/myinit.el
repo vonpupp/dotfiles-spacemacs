@@ -3,6 +3,29 @@
   ;; (helm-descbinds-mode)
 
   ;; ----------------------------------------------------------------
+  ;; Babel
+  ;; ----------------------------------------------------------------
+
+  (org-babel-do-load-languages
+   (quote org-babel-load-languages)
+   (quote (
+     (emacs-lisp . t)
+     (dot . t)
+     (ditaa . t)
+     (R . t)
+     (python . t)
+     (gnuplot . t)
+     (ledger . t)
+     (org . t)
+     (plantuml . t)
+     (latex . t)
+  )))
+
+  ;; PLANTUML
+  (setq org-plantuml-jar-path
+    (expand-file-name "/opt/plantuml/plantuml.jar"))
+
+  ;; ----------------------------------------------------------------
   ;; Org mode
   ;; ----------------------------------------------------------------
 
@@ -77,7 +100,7 @@
 
   ;; STATES
   ;; TIP: ~M-x org-mode-restart~ refreshes the org-mode cache
-  (setq org-todo-keywords '((type "TODO(d/!)" "SOMEDAY(s/!)" "NEXT(n/!)" "WAITING(w@/!)" "PROJ(p)" "REPEAT(r/!)" "MEETING(m/!)" "|" "DONE(d)" "CANCELLED(c@/!)" "SKIPPED(k@/!)")))
+  (setq org-todo-keywords '((type "TODO(t/!)" "SOMEDAY(s/!)" "NEXT(n/!)" "WAITING(w@/!)" "PROJ(p)" "REPEAT(r/!)" "MEETING(m/!)" "|" "DONE(d)" "CANCELLED(c@/!)" "SKIPPED(k@/!)")))
   ;; (setq org-todo-keywords '(
   ;;   (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
   ;;   (sequence "HABIT(x)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING")
