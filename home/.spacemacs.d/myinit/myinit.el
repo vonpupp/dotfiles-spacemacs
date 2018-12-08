@@ -1,4 +1,9 @@
 (defun myentrypoint ()
+  ;; ----------------------------------------------------------------
+  ;; Org Protocol
+  ;; ----------------------------------------------------------------
+  (require 'org-protocol)
+
   ;; (require 'helm-descbinds)
   ;; (helm-descbinds-mode)
 
@@ -38,6 +43,7 @@
 
   ;; MODULES
   (setq org-modules (quote (org-habit)))
+  (add-to-list 'org-modules 'org-protocol)
 
   ;; LOG
   (setq org-log-into-drawer "LOGBOOK")
@@ -88,6 +94,9 @@
   (setq org-refile-targets (quote ((org-agenda-files :level . 1))))
   (setq org-refile-use-outline-path (quote full-file-path))
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
+
+  ;; ID
+  (setq org-id-locations-file (concat org-directory ".org-id-locations"))
 
   ;; JOURNAL
   ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bemacs/org#org-journal-support
@@ -165,10 +174,12 @@
   ;; CAPTURE
   (setq org-capture-templates
     '(
-      ("p" "Protocol" entry (file+headline ,(concat org-directory "capture.org") "Inbox")
-        "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-      ("L" "Protocol Link" entry (file+headline ,(concat org-directory "capture.org") "Inbox")
-        "* %? [[%:link][%:description]] \nCaptured On: %U")
+      ;; See: https://github.com/sprig/org-capture-extension
+      ;; See: https://gist.github.com/cjp/64ac13f5966456841c197f70c7d3a53a
+      ("p" "Protocol" entry (file+headline "~/org/capture.org" "Inbox")
+       "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+      ("L" "Protocol Link" entry (file+headline "~/org/capture.org" "Inbox")
+       "* %? [[%:link][%:description]] \nCaptured On: %U")
 
       ;; ;; See: https://github.com/sprig/org-capture-extension
       ;; ("p" "Protocol" entry (file+headline ,(concat org-directory "capture.org") "Inbox")
