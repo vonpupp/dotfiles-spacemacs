@@ -1,5 +1,10 @@
 (defun myentrypoint ()
   ;; ----------------------------------------------------------------
+  ;; Spell check
+  ;; ----------------------------------------------------------------
+  (setq spell-checking-enable-auto-dictionary t)
+  (setq enable-flyspell-auto-completion t)
+  ;; ----------------------------------------------------------------
   ;; Org Protocol
   ;; ----------------------------------------------------------------
   (require 'org-protocol)
@@ -120,9 +125,9 @@
     ("@home" . ?h)
     ("@work" . ?w)
     ("@phone" . ?p)
-    ("@laptop" . ?l)
+    ("@notebook" . ?n)
     ("@desktop" . ?d)
-    ("!review" . ?r)
+    ("review" . ?r)
     (:startgrouptag)
     ("me" . ?1)
     (:grouptags)
@@ -136,16 +141,16 @@
     (:grouptags)
     ("partner" . ?l)
     ("parents" . ?o)
-    ("extfamily" . ?e)
-    ("neighbor" . ?n)
-    ("friends" . ?f)
+    ("extfamily" . ?x)
+    ("neighbor" . ?g)
+    ;; ("friends" . ?f)
     (:endgrouptag)
     (:startgrouptag)
     ("doing" . ?3)
     (:grouptags)
     ("finances" . ?f)
-    ("stayinmalaga" . ?s)
-    ("living" . ?i)
+    ("stayinmalaga" . ?y)
+    ("living" . ?v)
     (:endgrouptag)
   )))
 
@@ -210,6 +215,13 @@
   ))
 
   ;; ----------------------------------------------------------------
+  ;; Misc
+  ;; ----------------------------------------------------------------
+  ;; Familiar zooming with Ctrl+ and Ctrl-
+  (define-key global-map (kbd "C-=") 'text-scale-increase)
+  (define-key global-map (kbd "C--") 'text-scale-decrease)
+  (setq vc-follow-symlinks t) ;; do not ask question about following symlinks
+  ;; ----------------------------------------------------------------
   ;; ERC
   ;; ----------------------------------------------------------------
   (setq erc-prompt-for-nickserv-password nil)
@@ -237,12 +249,23 @@
   (pinentry-start)
 
   ;; ----------------------------------------------------------------
+  ;; Third party modules
+  ;; ----------------------------------------------------------------
+
+  ;; ----------------------------------------------------------------
   ;; Edit server
   ;; See: https://www.emacswiki.org/emacs/Edit_with_Emacs
   ;; ----------------------------------------------------------------
-  (add-to-list 'load-path "~/.spacemacs.d/thirdparty")
+  (add-to-list 'load-path "~/.spacemacs.d/thirdparty/editserver")
   (require 'edit-server)
   (edit-server-start)
+
+  ;; ----------------------------------------------------------------
+  ;; pdf-tools-org
+  ;; ----------------------------------------------------------------
+  (add-to-list 'load-path "~/.spacemacs.d/thirdparty/pdf-tools-org")
+  (require 'pdf-tools-org)
+
 )
 
 (provide 'myinit)

@@ -62,6 +62,8 @@ This function should only modify configuration layer settings."
      python
      dash
      erc
+     spell-checking
+     pdf
      )
 
    ;; List of additional packages that will be installed without being
@@ -72,8 +74,10 @@ This function should only modify configuration layer settings."
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
+                                      ;; Keychain
                                       keychain-environment
                                       pinentry
+                                      ;; org-mode
                                       org-journal
                                       )
 

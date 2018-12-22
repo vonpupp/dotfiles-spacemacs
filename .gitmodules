@@ -1,0 +1,3 @@
+[submodule "home/.spacemacs.d/thirdparty/pdf-tools-org"]
+	path = home/.spacemacs.d/thirdparty/pdf-tools-org
+	url = https://github.com/machc/pdf-tools-org.git
