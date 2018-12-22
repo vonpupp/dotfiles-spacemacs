@@ -79,6 +79,7 @@ This function should only modify configuration layer settings."
                                       pinentry
                                       ;; org-mode
                                       org-journal
+                                      org-noter
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -446,13 +447,15 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-pretty-docs nil
 
     ;; Theme
-    ;; 1st: most readable and nice colors
-    ;; Problems with ranger and too much orange
-    dotspacemacs-themes '(subatomic)
-    ;; 2nd: readable and quite nice
-    ;;dotspacemacs-themes '(flatland)
-    ;; 3rd: Readable and ok, not my favorite colors though, ranger colors ok
-    ;; dotspacemacs-themes '(heroku)
+   dotspacemacs-themes '(
+                         ;; 1st: most readable and nice colors
+                         ;; Problems with ranger and too much orange
+                         subatomic
+                         ;; 2nd: readable and quite nice
+                         flatland
+                         ;; 3rd: Readable and ok, not my favorite colors though, ranger colors ok
+                         heroku
+                         )
    ))
 
 (defun dotspacemacs/user-env ()
