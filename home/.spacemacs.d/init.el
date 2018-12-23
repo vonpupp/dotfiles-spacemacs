@@ -33,7 +33,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -63,6 +63,7 @@ This function should only modify configuration layer settings."
      dash
      erc
      spell-checking
+     auto-completion
      pdf
      )
 
@@ -80,6 +81,9 @@ This function should only modify configuration layer settings."
                                       ;; org-mode
                                       org-journal
                                       org-noter
+                                      org-beautify-theme
+                                      ;; Diatheke
+                                      dtk
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -190,8 +194,8 @@ It should only modify the values of Spacemacs settings."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'.
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 7))
+   dotspacemacs-startup-lists '((recents . 10)
+                                (projects . 10))
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
