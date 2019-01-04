@@ -214,6 +214,11 @@
   :END:" :empty-lines 1)
   ))
 
+  ;; Open notes on a separate frame
+  (setq org-noter-notes-window-location (quote (quote other-frame)))
+  ;; This should allow to continue on last page but it is not working.
+  ;; Needs review
+  (setq org-noter-auto-save-last-location t)
   ;; ----------------------------------------------------------------
   ;; Misc
   ;; ----------------------------------------------------------------
