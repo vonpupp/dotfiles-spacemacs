@@ -266,6 +266,12 @@
   (add-to-list 'load-path "~/.spacemacs.d/thirdparty/pdf-tools-org")
   (require 'pdf-tools-org)
 
+  ;; ----------------------------------------------------------------
+  ;; org-impress-js.el
+  ;; ----------------------------------------------------------------
+  (add-to-list 'load-path "~/.spacemacs.d/thirdparty/org-impress-js.el")
+  (require 'ox-impress-js)
+
 )
 
 (provide 'myinit)
