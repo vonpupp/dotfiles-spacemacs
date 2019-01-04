@@ -4,3 +4,6 @@
 [submodule "home/.spacemacs.d/thirdparty/org-impress-js.el"]
 	path = home/.spacemacs.d/thirdparty/org-impress-js.el
 	url = https://github.com/kinjo/org-impress-js.el.git
+[submodule "home/.spacemacs.d/thirdparty/org-reveal"]
+	path = home/.spacemacs.d/thirdparty/org-reveal
+	url = https://github.com/yjwen/org-reveal.git

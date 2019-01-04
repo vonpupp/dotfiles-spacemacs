@@ -277,6 +277,12 @@
   (add-to-list 'load-path "~/.spacemacs.d/thirdparty/org-impress-js.el")
   (require 'ox-impress-js)
 
+  ;; ----------------------------------------------------------------
+  ;; org-reveal
+  ;; ----------------------------------------------------------------
+  (add-to-list 'load-path "~/.spacemacs.d/thirdparty/org-reveal")
+  (require 'ox-reveal)
+
 )
 
 (provide 'myinit)
