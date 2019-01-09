@@ -110,7 +110,7 @@
   (setq org-journal-date-prefix "#+TITLE: ")
   (setq org-journal-date-format "%A, %B %d %Y")
   (setq org-journal-time-prefix "* ")
-  (setq org-journal-time-format "")
+  (setq org-journal-time-format "%Y-%m-%d %H:%M")
 
   ;; STATES
   ;; TIP: ~M-x org-mode-restart~ refreshes the org-mode cache
@@ -213,6 +213,11 @@
   :HoursWeek:  Get it automatically
   :END:" :empty-lines 1)
   ))
+
+  ;; EXPORT
+  (setq org-export-backends
+   (quote
+    (beamer html icalendar latex man odt freemind taskjuggler)))
 
   ;; Open notes on a separate frame
   (setq org-noter-notes-window-location (quote (quote other-frame)))
