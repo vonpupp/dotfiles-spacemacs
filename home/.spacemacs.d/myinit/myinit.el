@@ -81,6 +81,8 @@
      ;; other filters
      ("l" "All actionable tasks" todo "TODO|NEXT|WAITING|PROJ"
       ((org-agenda-overriding-header "TODO tasks")))
+     ("h" "Habits" tags-todo "+habit"
+      ((org-agenda-overriding-header "Habits")))
      ("1" "ME" tags-todo "+ME"
       ((org-agenda-overriding-header "ME tag")))
      ("2" "RELATING" tags-todo "+RELATING"
@@ -219,11 +221,22 @@
    (quote
     (beamer html icalendar latex man odt freemind taskjuggler)))
 
+  ;; ----------------------------------------------------------------
+  ;; Org Misc
+  ;; ----------------------------------------------------------------
+  ;; When hitting alt-return on a header, please create a new one without
+  ;; messing up the one I'm standing on.
+  (setq org-insert-heading-respect-content t)
+  ;; Keep the indentation well structured by. OMG this is a must have. Makes
+  ;; it feel less like editing a big text file and more like a purpose built
+  ;; editor for org mode that forces the indentation.
+  (setq org-startup-indented t)
   ;; Open notes on a separate frame
   (setq org-noter-notes-window-location (quote (quote other-frame)))
   ;; This should allow to continue on last page but it is not working.
   ;; Needs review
   (setq org-noter-auto-save-last-location t)
+
   ;; ----------------------------------------------------------------
   ;; Misc
   ;; ----------------------------------------------------------------
@@ -231,6 +244,15 @@
   (define-key global-map (kbd "C-=") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
   (setq vc-follow-symlinks t) ;; do not ask question about following symlinks
+  (add-hook 'git-commit-setup-hook 'git-commit-turn-on-flyspell)
+  ;; holidays
+  ;;(setq holiday-christian-holidays nil)
+  ;;(setq holiday-hebrew-holidays t)
+  ;;(setq holiday-islamic-holidays nil)
+  ;;(setq holiday-bahai-holidays nil)
+  ;;(setq holiday-oriental-holidays nil)
+
+
   ;; ----------------------------------------------------------------
   ;; ERC
   ;; ----------------------------------------------------------------
