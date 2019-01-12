@@ -55,7 +55,7 @@
 
   ;; AGENDA
   (setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
-  ;; See: https://stackoverflow.com/a/29905161/1332764
+  ;; Source: https://stackoverflow.com/a/29905161/1332764
   (setq org-agenda-include-diary t)
   (setq org-agenda-start-on-weekday 7)
   ;; (setq org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("HABIT" "REPEAT")))
@@ -171,7 +171,7 @@
           ("BODY" . (:foreground "yellow"))
          ))
 
-  ;; See: https://github.com/sprig/org-capture-extension
+  ;; Source: https://github.com/sprig/org-capture-extension
   ;; (defun transform-square-brackets-to-round-ones(string-to-transform)
   ;;   "Transforms [ into ( and ] into ), other chars left unchanged."
   ;;   (concat
@@ -181,14 +181,14 @@
   ;; CAPTURE
   (setq org-capture-templates
     '(
-      ;; See: https://github.com/sprig/org-capture-extension
-      ;; See: https://gist.github.com/cjp/64ac13f5966456841c197f70c7d3a53a
+      ;; Source: https://github.com/sprig/org-capture-extension
+      ;; Source: https://gist.github.com/cjp/64ac13f5966456841c197f70c7d3a53a
       ("p" "Protocol" entry (file+headline "~/org/capture.org" "Inbox")
        "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
       ("L" "Protocol Link" entry (file+headline "~/org/capture.org" "Inbox")
        "* %? [[%:link][%:description]] \nCaptured On: %U")
 
-      ;; ;; See: https://github.com/sprig/org-capture-extension
+      ;; ;; Source: https://github.com/sprig/org-capture-extension
       ;; ("p" "Protocol" entry (file+headline ,(concat org-directory "capture.org") "Inbox")
       ;;  "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
 	    ;; ("L" "Protocol Link" entry (file+headline ,(concat org-directory "capture.org") "Inbox")
@@ -275,8 +275,8 @@
 
   ;; ----------------------------------------------------------------
   ;; Pinentry
-  ;; See: https://emacs.stackexchange.com/a/32882
-  ;; See: https://github.com/syl20bnr/spacemacs-elpa-mirror/blob/master/gnu/pinentry-readme.txt
+  ;; Source: https://emacs.stackexchange.com/a/32882
+  ;; Source: https://github.com/syl20bnr/spacemacs-elpa-mirror/blob/master/gnu/pinentry-readme.txt
   ;; ----------------------------------------------------------------
   (pinentry-start)
 
@@ -286,7 +286,7 @@
 
   ;; ----------------------------------------------------------------
   ;; Edit server
-  ;; See: https://www.emacswiki.org/emacs/Edit_with_Emacs
+  ;; Source: https://www.emacswiki.org/emacs/Edit_with_Emacs
   ;; ----------------------------------------------------------------
   (add-to-list 'load-path "~/.spacemacs.d/thirdparty/editserver")
   (require 'edit-server)
@@ -309,6 +309,14 @@
   ;; ----------------------------------------------------------------
   (add-to-list 'load-path "~/.spacemacs.d/thirdparty/org-reveal")
   (require 'ox-reveal)
+
+  ;; ----------------------------------------------------------------
+  ;; openwith
+  ;; Source: https://stackoverflow.com/questions/51006855/open-mp4-files-from-orgmode
+  ;; ----------------------------------------------------------------
+  (require 'openwith)
+  (openwith-mode t)
+  (setq openwith-associations '(("\\.mp4\\'" "mpv" (file))))
 
 )
 

@@ -82,6 +82,8 @@ This function should only modify configuration layer settings."
                                       org-journal
                                       org-noter
                                       org-beautify-theme
+                                      ;; openwith
+                                      openwith
                                       ;; Diatheke
                                       dtk
                                       )
@@ -186,7 +188,7 @@ It should only modify the values of Spacemacs settings."
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
    ;; dotspacemacs-startup-banner 'official
-   dotspacemacs-startup-banner "~/.spacemacs.d/banners/YHWH-nissi600.png"
+   dotspacemacs-startup-banner "~/Pictures/banners/Hebrew-Names03-YHWH_yireh-YHWH_will_provide.png"
 
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
