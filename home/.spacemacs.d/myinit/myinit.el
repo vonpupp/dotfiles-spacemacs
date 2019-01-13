@@ -109,10 +109,12 @@
   ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bemacs/org#org-journal-support
   (setq org-journal-dir (concat org-directory "journal/"))
   (setq org-journal-file-format "%Y-%m-%d")
-  (setq org-journal-date-prefix "#+TITLE: ")
-  (setq org-journal-date-format "%A, %B %d %Y")
+  (setq org-journal-date-prefix "* ")
+  ;;(setq org-journal-date-format "%A, %B %d %Y")
+  (setq org-journal-date-format "%Y-%m-%d")
   (setq org-journal-time-prefix "* ")
   (setq org-journal-time-format "%Y-%m-%d %H:%M")
+  (setq org-journal-time-format "%H:%M")
 
   ;; STATES
   ;; TIP: ~M-x org-mode-restart~ refreshes the org-mode cache
@@ -310,13 +312,17 @@
   (add-to-list 'load-path "~/.spacemacs.d/thirdparty/org-reveal")
   (require 'ox-reveal)
 
-  ;; ----------------------------------------------------------------
   ;; openwith
   ;; Source: https://stackoverflow.com/questions/51006855/open-mp4-files-from-orgmode
   ;; ----------------------------------------------------------------
   (require 'openwith)
   (openwith-mode t)
   (setq openwith-associations '(("\\.mp4\\'" "mpv" (file))))
+
+  ;; Diatheke
+  ;; See: https://github.com/vonpupp/diatheke.el
+  ;; ----------------------------------------------------------------
+  ;;(require 'diatheke)
 
 )
 
