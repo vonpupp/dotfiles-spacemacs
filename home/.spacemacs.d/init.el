@@ -83,6 +83,8 @@ This function should only modify configuration layer settings."
                                       org-journal
                                       org-noter
                                       org-beautify-theme
+                                      ;; exporters
+                                      ;;ox-reveal
                                       ;; openwith
                                       openwith
                                       ;; nov.el

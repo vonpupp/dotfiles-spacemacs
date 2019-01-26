@@ -120,7 +120,7 @@
   ;; TIP: ~M-x org-mode-restart~ refreshes the org-mode cache
   (setq org-todo-keywords '((type "TODO(t/!)" "SOMEDAY(s/!)" "NEXT(n/!)" "WAITING(w@/!)" "PROJ(p)" "REPEAT(r/!)" "MEETING(m/!)" "|" "DONE(d)" "CANCELLED(c@/!)" "SKIPPED(k@/!)")))
   ;; (setq org-todo-keywords '(
-  ;;   (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+  ;;   (sequence "TODO(t/!)" "NEXT(n/!)" "|" "DONE(d/!)")
   ;;   (sequence "HABIT(x)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING")
   ;; ))
 
@@ -248,6 +248,9 @@
   (setq vc-follow-symlinks t) ;; do not ask question about following symlinks
   (add-hook 'git-commit-setup-hook 'git-commit-turn-on-flyspell)
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  (add-to-list 'safe-local-variable-values
+               '(eval flyspell-buffer))
+
   ;; holidays
   ;;(setq holiday-christian-holidays nil)
   ;;(setq holiday-hebrew-holidays t)
