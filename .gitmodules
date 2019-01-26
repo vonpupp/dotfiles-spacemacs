@@ -7,3 +7,6 @@
 [submodule "home/.spacemacs.d/thirdparty/org-reveal"]
 	path = home/.spacemacs.d/thirdparty/org-reveal
 	url = https://github.com/yjwen/org-reveal.git
+[submodule "home/.spacemacs.d/thirdparty/dtk"]
+	path = home/.spacemacs.d/thirdparty/dtk
+	url = https://github.com/dtk01/dtk

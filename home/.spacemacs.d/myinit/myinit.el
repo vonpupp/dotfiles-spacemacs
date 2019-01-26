@@ -247,6 +247,7 @@
   (define-key global-map (kbd "C--") 'text-scale-decrease)
   (setq vc-follow-symlinks t) ;; do not ask question about following symlinks
   (add-hook 'git-commit-setup-hook 'git-commit-turn-on-flyspell)
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
   ;; holidays
   ;;(setq holiday-christian-holidays nil)
   ;;(setq holiday-hebrew-holidays t)
@@ -312,6 +313,7 @@
   (add-to-list 'load-path "~/.spacemacs.d/thirdparty/org-reveal")
   (require 'ox-reveal)
 
+  ;; ----------------------------------------------------------------
   ;; openwith
   ;; Source: https://stackoverflow.com/questions/51006855/open-mp4-files-from-orgmode
   ;; ----------------------------------------------------------------
@@ -319,10 +321,14 @@
   (openwith-mode t)
   (setq openwith-associations '(("\\.mp4\\'" "mpv" (file))))
 
+  ;; ----------------------------------------------------------------
   ;; Diatheke
   ;; See: https://github.com/vonpupp/diatheke.el
   ;; ----------------------------------------------------------------
+  ;;(add-to-list 'load-path "~/.spacemacs.d/thirdparty/diatheke.el")
   ;;(require 'diatheke)
+  (add-to-list 'load-path "~/.spacemacs.d/thirdparty/dtk")
+  (require 'dtk)
 
 )
 
