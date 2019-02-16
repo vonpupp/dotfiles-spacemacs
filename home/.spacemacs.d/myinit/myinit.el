@@ -313,8 +313,14 @@
   ;; ----------------------------------------------------------------
   ;; org-reveal
   ;; ----------------------------------------------------------------
-  (add-to-list 'load-path "~/.spacemacs.d/thirdparty/org-reveal")
-  (require 'ox-reveal)
+  ;;(add-to-list 'load-path "~/.spacemacs.d/thirdparty/org-reveal")
+  ;;(require 'ox-reveal)
+
+  ;; ----------------------------------------------------------------
+  ;; org-re-reveal
+  ;; ----------------------------------------------------------------
+  (add-to-list 'load-path "~/.spacemacs.d/thirdparty/org-re-reveal")
+  (require 'org-re-reveal)
 
   ;; ----------------------------------------------------------------
   ;; openwith
