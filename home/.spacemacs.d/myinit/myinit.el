@@ -251,13 +251,33 @@
   (add-to-list 'safe-local-variable-values
                '(eval flyspell-buffer))
 
-  ;; holidays
+  ;; ----------------------------------------------------------------
+  ;; Calendar
+  ;; ----------------------------------------------------------------
   ;;(setq holiday-christian-holidays nil)
   ;;(setq holiday-hebrew-holidays t)
   ;;(setq holiday-islamic-holidays nil)
   ;;(setq holiday-bahai-holidays nil)
   ;;(setq holiday-oriental-holidays nil)
 
+  ; Source: https://www.emacswiki.org/emacs/CalendarWeekNumbers
+  (copy-face 'default 'calendar-iso-week-header-face)
+  (set-face-attribute 'calendar-iso-week-header-face nil
+                      :height 1.0 :foreground "salmon")
+  (setq calendar-intermonth-header
+        (propertize "W"
+                    'font-lock-face 'calendar-iso-week-header-face))
+
+  (copy-face font-lock-constant-face 'calendar-iso-week-face)
+  (set-face-attribute 'calendar-iso-week-face nil
+                      :height 1.0 :foreground "salmon")
+  (setq calendar-intermonth-text
+        '(propertize
+          (format "%2d"
+                  (car
+                   (calendar-iso-from-absolute
+                    (calendar-absolute-from-gregorian (list month day year)))))
+          'font-lock-face 'calendar-iso-week-face))
 
   ;; ----------------------------------------------------------------
   ;; ERC
