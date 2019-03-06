@@ -485,6 +485,10 @@ configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; (server-start)
+  (setq my-home-dir (expand-file-name "~"))
+  (setq user-emacs-directory (concat my-home-dir "/.spacemacs.d/"))
+  (defvar e:custom-directory   (expand-file-name "config-public/"   user-emacs-directory))
+  (org-babel-load-file (expand-file-name "user-init.org" e:custom-directory))
   )
 
 (defun dotspacemacs/user-load ()
