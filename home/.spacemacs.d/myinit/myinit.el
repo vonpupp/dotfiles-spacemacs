@@ -359,6 +359,45 @@
   (add-to-list 'load-path "~/.spacemacs.d/thirdparty/dtk")
   (require 'dtk)
 
+  ;; ----------------------------------------------------------------
+  ;; Notmuch
+  ;; See: https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bemail/notmuch
+  ;; See: https://github.com/jethrokuan/.emacs.d/blob/master/config.org
+  ;; ----------------------------------------------------------------
+  ;(message-auto-save-directory "~/.mail/drafts/")
+  (message-send-mail-function 'message-send-mail-with-sendmail)
+  ;(sendmail-program (executable-find "msmtp"))
+
+  ;; We need this to ensure msmtp picks up the correct email account
+  (message-sendmail-envelope-from 'header)
+  (mail-envelope-from 'header)
+  (mail-specify-envelope-from t)
+  (message-kill-buffer-on-exit t)
+
+  (notmuch-always-prompt-for-sender t)
+  (notmuch-archive-tags '("-inbox" "-unread"))
+  (notmuch-crypto-process-mime t)
+  (notmuch-search-oldest-first nil)
+  (notmuch-message-headers '("To" "Cc" "Subject" "Bcc"))
+
+  (notmuch-saved-searches '((
+    (:name "inbox" :query "tag:inbox" :key "i")
+    (:name "unread" :query "tag:unread" :key "u" :sort-order newest-first)
+    (:name "flagged" :query "tag:flagged" :key "f" :sort-order newest-first)
+    (:name "sent" :query "tag:sent" :key "t" :sort-order newest-first)
+    (:name "drafts" :query "tag:draft" :key "d" :sort-order newest-first)
+    (:name "all mail" :query "*" :key "a" :sort-order newest-first))))
+
+  (setq mail-user-agent 'message-user-agent)
+  (setq message-send-mail-function 'message-send-mail-with-sendmail)
+  (setq message-kill-buffer-on-exit t)
+  (setq mail-specify-envelope-from t)
+  (setq sendmail-program "/usr/bin/msmtp"
+	      mail-specify-envelope-from t
+	      mail-envelope-from 'header
+	      message-sendmail-envelope-from 'header)
+
+
 )
 
 (provide 'myinit)
