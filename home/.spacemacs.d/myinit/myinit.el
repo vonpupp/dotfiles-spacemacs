@@ -16,7 +16,7 @@
   ;; Babel
   ;; ----------------------------------------------------------------
 
-  (org-babel-do-load-languages
+  (setq org-babel-do-load-languages
    (quote org-babel-load-languages)
    (quote (
      (emacs-lisp . t)
@@ -364,38 +364,63 @@
   ;; See: https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bemail/notmuch
   ;; See: https://github.com/jethrokuan/.emacs.d/blob/master/config.org
   ;; ----------------------------------------------------------------
-  ;(message-auto-save-directory "~/.mail/drafts/")
-  (message-send-mail-function 'message-send-mail-with-sendmail)
-  ;(sendmail-program (executable-find "msmtp"))
+  ;(require 'org-notmuch)
+  ;(setq notmuch-search-oldest-first nil)
+  ;(notmuch-search-oldest-first nil)
+  ;(use-package notmuch
+  ;  :preface (setq-default notmuch-command (executable-find "notmuch"))
+  ;  :if (executable-find "notmuch")
+  ;  :bind (("<f5>" . notmuch)
+  ;         :map notmuch-search-mode-map
+  ;         ("t" . jethro/notmuch-toggle-read)
+  ;         ("r" . notmuch-search-reply-to-thread)
+  ;         ("R" . notmuch-search-reply-to-thread-sender)
+  ;         :map notmuch-show-mode-map
+  ;         ;("l" . jethro/notmuch-show-jump-to-latest)
+  ;         ("<tab>" . org-next-link)
+  ;         ("<backtab>". org-previous-link)
+  ;         ("C-<return>" . browse-url-at-point))
+  ;  :config
+  ;;(require 'notmuch)
+  ;;(message-auto-save-directory "~/.mail/drafts/")
+  ;  :custom
+  ;  (setq notmuch-search-oldest-first nil)
 
-  ;; We need this to ensure msmtp picks up the correct email account
-  (message-sendmail-envelope-from 'header)
-  (mail-envelope-from 'header)
-  (mail-specify-envelope-from t)
-  (message-kill-buffer-on-exit t)
+  ;  (setq notmuch-saved-searches quote(
+  ;   ((:name "inbox" :query "folder:inbox" :key "i" :sort-order newest-first)
+  ;    (:name "unread" :query "tag:unread" :key "u" :sort-order newest-first)
+  ;    (:name "flagged" :query "tag:flagged" :key "f" :sort-order newest-first)
+  ;    (:name "sent" :query "tag:sent" :key "t" :sort-order newest-first)
+  ;    (:name "drafts" :query "tag:draft" :key "d" :sort-order newest-first)
+  ;    (:name "all mail" :query "*" :key "a" :sort-order newest-first))))
 
-  (notmuch-always-prompt-for-sender t)
-  (notmuch-archive-tags '("-inbox" "-unread"))
-  (notmuch-crypto-process-mime t)
-  (notmuch-search-oldest-first nil)
-  (notmuch-message-headers '("To" "Cc" "Subject" "Bcc"))
 
-  (notmuch-saved-searches '((
-    (:name "inbox" :query "tag:inbox" :key "i")
-    (:name "unread" :query "tag:unread" :key "u" :sort-order newest-first)
-    (:name "flagged" :query "tag:flagged" :key "f" :sort-order newest-first)
-    (:name "sent" :query "tag:sent" :key "t" :sort-order newest-first)
-    (:name "drafts" :query "tag:draft" :key "d" :sort-order newest-first)
-    (:name "all mail" :query "*" :key "a" :sort-order newest-first))))
+  ;  )
+  ;(setq message-send-mail-function 'message-send-mail-with-sendmail)
+  ;(setq sendmail-program (executable-find "msmtp"))
 
-  (setq mail-user-agent 'message-user-agent)
-  (setq message-send-mail-function 'message-send-mail-with-sendmail)
-  (setq message-kill-buffer-on-exit t)
-  (setq mail-specify-envelope-from t)
-  (setq sendmail-program "/usr/bin/msmtp"
-	      mail-specify-envelope-from t
-	      mail-envelope-from 'header
-	      message-sendmail-envelope-from 'header)
+  ;;; We need this to ensure msmtp picks up the correct email account
+  ;(setq message-sendmail-envelope-from 'header)
+  ;(setq mail-envelope-from 'header)
+  ;(setq mail-specify-envelope-from t)
+  ;(setq message-sendmail-f-is-evil nil)
+  ;(setq message-kill-buffer-on-exit t)
+  ;(setq notmuch-always-prompt-for-sender t)
+  ;(setq notmuch-archive-tags '("-inbox" "-unread"))
+  ;(setq notmuch-crypto-process-mime t)
+  ;(setq notmuch-hello-sections '(notmuch-hello-insert-saved-searches))
+  ;;'(notmuch-search-oldest-first nil)
+  ;(setq notmuch-message-headers '("To" "Cc" "Subject" "Bcc"))
+
+
+;  (setq mail-user-agent 'message-user-agent)
+;  (setq message-send-mail-function 'message-send-mail-with-sendmail)
+;  (setq message-kill-buffer-on-exit t)
+;  (setq mail-specify-envelope-from t)
+;  (setq sendmail-program "/usr/bin/msmtp"
+;	      mail-specify-envelope-from t
+;	      mail-envelope-from 'header
+;	      message-sendmail-envelope-from 'header)
 
 
 )
