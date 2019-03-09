@@ -16,7 +16,7 @@
   ;; Babel
   ;; ----------------------------------------------------------------
 
-  (setq org-babel-do-load-languages
+  (org-babel-do-load-languages
    (quote org-babel-load-languages)
    (quote (
      (emacs-lisp . t)
