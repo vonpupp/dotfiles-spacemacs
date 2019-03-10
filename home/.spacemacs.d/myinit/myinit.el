@@ -242,10 +242,11 @@
   ;; ----------------------------------------------------------------
   ;; Misc
   ;; ----------------------------------------------------------------
+  (setq vc-follow-symlinks t) ;; do not ask question about following symlinks
+  (setq org-confirm-babel-evaluate nil)
   ;; Familiar zooming with Ctrl+ and Ctrl-
   (define-key global-map (kbd "C-=") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
-  (setq vc-follow-symlinks t) ;; do not ask question about following symlinks
   (add-hook 'git-commit-setup-hook 'git-commit-turn-on-flyspell)
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
   (add-to-list 'safe-local-variable-values
