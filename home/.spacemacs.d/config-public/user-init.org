@@ -27,6 +27,8 @@
        ;(set-variable 'notmuch-hello-sections '(notmuch-hello-insert-saved-searches))
        ;(set-variable 'notmuch-labeler-hide-known-labels t)
        (set-variable 'notmuch-message-headers '("To" "Cc" "Subject" "Bcc"))
+       (set-variable 'notmuch-message-headers '("To" "Cc" "Subject" "Bcc"))
+       (set-variable 'notmuch-fcc-dirs nil)
 
        (set-variable 'notmuch-saved-searches
                      '((:name "inbox" :query "tag:inbox" :key "i")
