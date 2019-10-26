@@ -1,3 +1,10 @@
+#+TITLE: public-config.org
+#+STARTUP: overview
+#+STARTUP: indent
+
+* Config
+** General
+#+BEGIN_SRC emacs-lisp
 (defun myentrypoint ()
   ;; ----------------------------------------------------------------
   ;; Spell check
@@ -232,7 +239,7 @@
   ;; Keep the indentation well structured by. OMG this is a must have. Makes
   ;; it feel less like editing a big text file and more like a purpose built
   ;; editor for org mode that forces the indentation.
-  ;;(setq org-startup-indented t)
+  ;; (setq org-startup-indented t)
   ;; Open notes on a separate frame
   (setq org-noter-notes-window-location (quote (quote other-frame)))
   ;; This should allow to continue on last page but it is not working.
@@ -423,7 +430,24 @@
 ;	      mail-envelope-from 'header
 ;	      message-sendmail-envelope-from 'header)
 
+  ;(setq send-mail-function (quote smtpmail-send-it))
+  ;(setq smtpmail-smtp-server "smtp.gmail.com")
+  ;(setq smtpmail-smtp-service 587)
+
+  ;(setq mail-host-address "albertdelafuente.com")
+  ;(setq user-full-name "Albert De La Fuente")
+  ;(setq user-mail-adress "mail@albertdelafuente.com")
+
+  ;(setq notmuch/gnus-alias-identities
+  ;      '(
+  ;        ("home" nil
+  ;         "Albert De La Fuente <mail@albertdelafuente.com>" ;; Sender address
+  ;         nil                                       ;; Organization header
+  ;         nil                                       ;; Extra headers
+  ;         nil                                       ;; Extra body text
+  ;         "~/.signature")))
 
 )
 
 (provide 'myinit)
+#+END_SRC

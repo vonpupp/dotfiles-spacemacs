@@ -490,13 +490,13 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (defvar e:public-directory   (expand-file-name "config-public/"   user-emacs-directory))
   (defvar e:private-directory  (expand-file-name "config-private/"  user-emacs-directory))
 
-  (let ((public-config (expand-file-name "public-init.org" e:public-directory)))
-    (when (file-exists-p public-config)
-      (org-babel-load-file public-config)))
+  (let ((public-init (expand-file-name "public-init.org" e:public-directory)))
+    (when (file-exists-p public-init)
+      (org-babel-load-file public-init)))
 
-  (let ((private-config (expand-file-name "private-init.org" e:private-directory)))
-    (when (file-exists-p private-config)
-      (org-babel-load-file private-config)))
+  (let ((private-init (expand-file-name "private-init.org" e:private-directory)))
+    (when (file-exists-p private-init)
+      (org-babel-load-file private-init)))
   )
 
 (defun dotspacemacs/user-load ()
@@ -514,8 +514,15 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  (let ((public-config (expand-file-name "public-config.org" e:public-directory)))
+    (when (file-exists-p public-config)
+      (org-babel-load-file public-config)))
 
-  (add-to-list 'load-path "~/.spacemacs.d/myinit")
+  (let ((private-config (expand-file-name "private-config.org" e:private-directory)))
+    (when (file-exists-p private-config)
+      (org-babel-load-file private-config)))
+
+  (add-to-list 'load-path "~/.spacemacs.d/public-config")
   (require 'myinit)
   (myentrypoint)
   )
