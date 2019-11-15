@@ -62,7 +62,7 @@
 
     ;; AGENDA
     (setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
-    ;; Source: https://stackoverflow.com/a/29905161/1332764
+    ;; Doc: https://stackoverflow.com/a/29905161/1332764
     (setq org-agenda-include-diary t)
     (setq org-agenda-start-on-weekday 7)
     ;; (setq org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("HABIT" "REPEAT")))
@@ -180,7 +180,7 @@
             ("BODY" . (:foreground "yellow"))
            ))
 
-    ;; Source: https://github.com/sprig/org-capture-extension
+    ;; Doc: https://github.com/sprig/org-capture-extension
     ;; (defun transform-square-brackets-to-round-ones(string-to-transform)
     ;;   "Transforms [ into ( and ] into ), other chars left unchanged."
     ;;   (concat
@@ -190,14 +190,14 @@
     ;; CAPTURE
     (setq org-capture-templates
       '(
-        ;; Source: https://github.com/sprig/org-capture-extension
-        ;; Source: https://gist.github.com/cjp/64ac13f5966456841c197f70c7d3a53a
+        ;; Doc: https://github.com/sprig/org-capture-extension
+        ;; Doc: https://gist.github.com/cjp/64ac13f5966456841c197f70c7d3a53a
         ("p" "Protocol" entry (file+headline "~/org/capture.org" "Inbox")
          "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
         ("L" "Protocol Link" entry (file+headline "~/org/capture.org" "Inbox")
          "* %? [[%:link][%:description]] \nCaptured On: %U")
 
-        ;; ;; Source: https://github.com/sprig/org-capture-extension
+        ;; ;; Doc: https://github.com/sprig/org-capture-extension
         ;; ("p" "Protocol" entry (file+headline ,(concat org-directory "capture.org") "Inbox")
         ;;  "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
         ;; ("L" "Protocol Link" entry (file+headline ,(concat org-directory "capture.org") "Inbox")
@@ -277,7 +277,7 @@
     ;;(setq holiday-bahai-holidays nil)
     ;;(setq holiday-oriental-holidays nil)
 
-    ; Source: https://www.emacswiki.org/emacs/CalendarWeekNumbers
+    ; Doc: https://www.emacswiki.org/emacs/CalendarWeekNumbers
     (copy-face 'default 'calendar-iso-week-header-face)
     (set-face-attribute 'calendar-iso-week-header-face nil
                         :height 1.0 :foreground "salmon")
@@ -318,8 +318,8 @@
 
     ;; ----------------------------------------------------------------
     ;; Pinentry
-    ;; Source: https://emacs.stackexchange.com/a/32882
-    ;; Source: https://github.com/syl20bnr/spacemacs-elpa-mirror/blob/master/gnu/pinentry-readme.txt
+    ;; Doc: https://emacs.stackexchange.com/a/32882
+    ;; Doc: https://github.com/syl20bnr/spacemacs-elpa-mirror/blob/master/gnu/pinentry-readme.txt
     ;; ----------------------------------------------------------------
     (pinentry-start)
 
@@ -329,7 +329,7 @@
 
     ;; ----------------------------------------------------------------
     ;; Edit server
-    ;; Source: https://www.emacswiki.org/emacs/Edit_with_Emacs
+    ;; Doc: https://www.emacswiki.org/emacs/Edit_with_Emacs
     ;; ----------------------------------------------------------------
     (add-to-list 'load-path "~/.spacemacs.d/thirdparty/editserver")
     (require 'edit-server)
@@ -361,7 +361,7 @@
 
     ;; ----------------------------------------------------------------
     ;; openwith
-    ;; Source: https://stackoverflow.com/questions/51006855/open-mp4-files-from-orgmode
+    ;; Doc: https://stackoverflow.com/questions/51006855/open-mp4-files-from-orgmode
     ;; ----------------------------------------------------------------
     (require 'openwith)
     (openwith-mode t)
@@ -369,7 +369,7 @@
 
     ;; ----------------------------------------------------------------
     ;; Diatheke
-    ;; See: https://github.com/vonpupp/diatheke.el
+    ;; Doc: https://github.com/vonpupp/diatheke.el
     ;; ----------------------------------------------------------------
     ;;(add-to-list 'load-path "~/.spacemacs.d/thirdparty/diatheke.el")
     ;;(require 'diatheke)
@@ -378,6 +378,7 @@
 
     ;; ----------------------------------------------------------------
     ;; Outshine
+    ;; Doc: https://github.com/syl20bnr/spacemacs/issues/5258
     ;; ----------------------------------------------------------------
     (require 'outshine)
     (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
@@ -386,8 +387,8 @@
 
     ;; ----------------------------------------------------------------
     ;; Notmuch
-    ;; See: https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bemail/notmuch
-    ;; See: https://github.com/jethrokuan/.emacs.d/blob/master/config.org
+    ;; Doc: https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bemail/notmuch
+    ;; Doc: https://github.com/jethrokuan/.emacs.d/blob/master/config.org
     ;; ----------------------------------------------------------------
     ;(require 'org-notmuch)
     ;(setq notmuch-search-oldest-first nil)
