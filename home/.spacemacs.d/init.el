@@ -33,7 +33,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(html
+   '(yaml
+     html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -43,7 +44,6 @@ This function should only modify configuration layer settings."
      auto-completion
      better-defaults
      emacs-lisp
-     git
      markdown
      multiple-cursors
      neotree
@@ -54,19 +54,23 @@ This function should only modify configuration layer settings."
             shell-default-height 30
             shell-default-position 'bottom)
      spell-checking
-     syntax-checking
-     version-control
      ;; ----------------------------------------------------------------
      ;; Other layers that I use
      ;; ----------------------------------------------------------------
      ranger
-     python
+     lsp
+     dap
+     syntax-checking
+     version-control
+     git
+     debug
      dash
      erc
      spell-checking
      auto-completion
      pdf
      notmuch
+     tmux
      )
 
    ;; List of additional packages that will be installed without being
@@ -92,6 +96,13 @@ This function should only modify configuration layer settings."
                                       nov
                                       ;; Diatheke
                                       dtk
+                                      ;; Beancount
+                                      outshine
+                                      (beancount :location (recipe
+                                                            :fetcher bitbucket
+                                                            :repo "blais/beancount"
+                                                            :files ("editors/emacs/beancount.el")
+                                                            :config (progn (add-hook 'beancount-mode-hook #'outline-minor-mode))))
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -497,6 +508,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (let ((private-init (expand-file-name "private-init.org" e:private-directory)))
     (when (file-exists-p private-init)
       (org-babel-load-file private-init)))
+  (defvar outline-minor-mode-prefix "\M-#")
   )
 
 (defun dotspacemacs/user-load ()
@@ -523,6 +535,7 @@ before packages are loaded."
       (org-babel-load-file private-config)))
 
   (add-to-list 'load-path "~/.spacemacs.d/public-config")
+  (add-hook 'term-mode-hook 'toggle-truncate-lines)
   (require 'myinit)
   (myentrypoint)
   )
