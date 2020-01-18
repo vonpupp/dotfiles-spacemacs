@@ -509,14 +509,34 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq user-emacs-directory (concat my-home-dir "/.spacemacs.d/"))
   (defvar e:public-directory   (expand-file-name "config-public/"   user-emacs-directory))
   (defvar e:private-directory  (expand-file-name "config-private/"  user-emacs-directory))
+  (defvar e:pubiorg (concat e:public-directory "public-config.org"))
+  (defvar e:priiorg (concat e:private-directory "private-config.org"))
+  (defvar e:pubiel (concat e:public-directory "public-config.el"))
+  (defvar e:priiel (concat e:private-directory "private-config.el"))
 
-  (let ((public-init (expand-file-name "public-init.org" e:public-directory)))
-    (when (file-exists-p public-init)
-      (org-babel-load-file public-init)))
+  ;; tangle without actually loading org
+  (when (or (file-newer-than-file-p e:pubiorg e:pubiel)
+            (file-newer-than-file-p e:priiorg e:priiel))
+    (call-process
+     (concat invocation-directory invocation-name)
+     nil nil t
+     "-q" "--batch" "--eval" "(require 'ob-tangle)"
+     "--eval" (format "(org-babel-tangle-file \"%s\")" e:pubiorg))
+    (call-process
+     (concat invocation-directory invocation-name)
+     nil nil t
+     "-q" "--batch" "--eval" "(require 'ob-tangle)"
+     "--eval" (format "(org-babel-tangle-file \"%s\")" e:priiorg)))
+  (if (file-exists-p e:pubiel) (load-file e:pubiel))
+  (if (file-exists-p e:priiel) (load-file e:priiel))
 
-  (let ((private-init (expand-file-name "private-init.org" e:private-directory)))
-    (when (file-exists-p private-init)
-      (org-babel-load-file private-init)))
+  ;(let ((public-init (expand-file-name "public-init.org" e:public-directory)))
+  ;  (when (file-exists-p public-init)
+  ;    (org-babel-load-file public-init)))
+
+  ;(let ((private-init (expand-file-name "private-init.org" e:private-directory)))
+  ;  (when (file-exists-p private-init)
+  ;    (org-babel-load-file private-init)))
   (defvar outline-minor-mode-prefix "\M-#")
   )
 
@@ -543,10 +563,7 @@ before packages are loaded."
     (when (file-exists-p private-config)
       (org-babel-load-file private-config)))
 
-  (add-to-list 'load-path "~/.spacemacs.d/public-config")
   (add-hook 'term-mode-hook 'toggle-truncate-lines)
-  (require 'myinit)
-  (myentrypoint)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
