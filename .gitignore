@@ -1,1 +1,4 @@
 home/.spacemacs.d/config-public/*.el
+home/.spacemacs.d/config-public/*.html
+home/.spacemacs.d/private-public/*.el
+home/.spacemacs.d/private-public/*.html

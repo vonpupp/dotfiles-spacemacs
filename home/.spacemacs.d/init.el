@@ -509,10 +509,10 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq user-emacs-directory (concat my-home-dir "/.spacemacs.d/"))
   (defvar e:public-directory   (expand-file-name "config-public/"   user-emacs-directory))
   (defvar e:private-directory  (expand-file-name "config-private/"  user-emacs-directory))
-  (defvar e:pubiorg (concat e:public-directory "public-config.org"))
-  (defvar e:priiorg (concat e:private-directory "private-config.org"))
-  (defvar e:pubiel (concat e:public-directory "public-config.el"))
-  (defvar e:priiel (concat e:private-directory "private-config.el"))
+  (defvar e:pubiorg (concat e:public-directory "public-init.org"))
+  (defvar e:priiorg (concat e:private-directory "private-init.org"))
+  (defvar e:pubiel (concat e:public-directory "public-init.el"))
+  (defvar e:priiel (concat e:private-directory "private-init.el"))
 
   ;; tangle without actually loading org
   (when (or (file-newer-than-file-p e:pubiorg e:pubiel)
@@ -563,7 +563,7 @@ before packages are loaded."
     (when (file-exists-p private-config)
       (org-babel-load-file private-config)))
 
-  (add-hook 'term-mode-hook 'toggle-truncate-lines)
+  ;(add-hook 'term-mode-hook 'toggle-truncate-lines)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
