@@ -33,7 +33,7 @@ The '(server-start)' is needed under the 'user-init()' function on the init.el f
      (gnuplot . t)
      (latex . t)
      (ledger . t)
-     (ly . t)
+     ;(ly . t)
      (matlab . t)
      (org . t)
      (plantuml . t)
@@ -310,16 +310,22 @@ Doc: https://github.com/syl20bnr/spacemacs-elpa-mirror/blob/master/gnu/pinentry-
 
 ** Misc
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
-  (setq vc-follow-symlinks t) ;; do not ask question about following symlinks
-  (setq org-confirm-babel-evaluate nil)
-  ;; Familiar zooming with Ctrl+ and Ctrl-
-  (define-key global-map (kbd "C-=") 'text-scale-increase)
-  (define-key global-map (kbd "C--") 'text-scale-decrease)
-  (add-hook 'git-commit-setup-hook 'git-commit-turn-on-flyspell)
-  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  ;; Do not ask for confirmation on some file configs
+  (put 'org-todo-keyword-faces 'safe-local-variable #'listp)
   (add-to-list 'safe-local-variable-values
                '(eval flyspell-buffer))
 
+  ;; Do not ask for confirmation to evaluate babel blocks
+  (setq org-confirm-babel-evaluate nil)
+
+  ;; Familiar zooming with Ctrl+ and Ctrl-
+  (define-key global-map (kbd "C-=") 'text-scale-increase)
+  (define-key global-map (kbd "C--") 'text-scale-decrease)
+
+  ;; Flyspell commit messages
+  (add-hook 'git-commit-setup-hook 'git-commit-turn-on-flyspell)
+
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 #+END_SRC
 
 ** Org-impress                                                  :thirdparty:
@@ -387,6 +393,7 @@ Doc: https://github.com/vonpupp/diatheke.el
   (require 'dtk)
 #+END_SRC
 
+** Novel
 
 * Tasks [0%] [0/3]                                                 :noexport:
 ** TODO ox-json
