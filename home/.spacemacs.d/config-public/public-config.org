@@ -1,14 +1,22 @@
-#+TITLE: Vonpupp's Spacemacs configuration
+#+TITLE: Vonpupp's Spacemacs configuration (user-config)
 #+STARTUP: overview
 #+STARTUP: indent
 
 * Spacemacs configuration
 ** Org-protocol
+*** Usage
+Use the following extensions:
+- Chrome: [[https://chrome.google.com/webstore/detail/org-capture/kkkjlfejijcjgjllecmnejhogpbcigdc]]
+- Firefox: [[https://addons.mozilla.org/en-US/firefox/addon/org-capture/]]
+
+Once installed an icon on the top of the browser should appear. To setup the
+handler and the templates read: [[https://github.com/sprig/org-capture-extension]]
+
+The '(server-start)' is needed under the 'user-init()' function on the init.el file.
+
+*** Config
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   (require 'org-protocol)
-
-  ;; (require 'helm-descbinds)
-  ;; (helm-descbinds-mode)
 #+END_SRC
 
 ** Org-babel
@@ -16,16 +24,23 @@
   (org-babel-do-load-languages
    (quote org-babel-load-languages)
    (quote (
-     (emacs-lisp . t)
-     (dot . t)
-     (ditaa . t)
      (R . t)
-     (python . t)
+     (calc . t)
+     (ditaa . t)
+     (dot . t)
+     (emacs-lisp . t)
      (gnuplot . t)
+     (gnuplot . t)
+     (latex . t)
      (ledger . t)
+     (ly . t)
+     (matlab . t)
      (org . t)
      (plantuml . t)
-     (latex . t)
+     (python . t)
+     (shell . t)
+     (sql . t)
+     (sqlite . t)
   )))
 #+END_SRC
 
@@ -287,6 +302,12 @@ Doc: https://github.com/syl20bnr/spacemacs-elpa-mirror/blob/master/gnu/pinentry-
     (expand-file-name "/opt/plantuml/plantuml.jar"))
 #+END_SRC
 
+** Auto documentation with helm-descbinds-mode
+#+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
+  ;; (require 'helm-descbinds)
+  ;; (helm-descbinds-mode)
+#+END_SRC
+
 ** Misc
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   (setq vc-follow-symlinks t) ;; do not ask question about following symlinks
@@ -366,4 +387,13 @@ Doc: https://github.com/vonpupp/diatheke.el
   (require 'dtk)
 #+END_SRC
 
-* Build                                                           :noexport:
+
+* Tasks [0%] [0/3]                                                 :noexport:
+** TODO ox-json
+- https://www.reddit.com/r/emacs/comments/ccwl4r/i_made_a_json_export_back_end_for_org_mode/
+** TODO ob-translate
+- https://github.com/krisajenkins/ob-translate
+** TODO ob-browser
+- https://github.com/krisajenkins/ob-browser
+** FIX edit-server
+* Build                                                            :noexport:

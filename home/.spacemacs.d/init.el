@@ -504,40 +504,11 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  ;; (server-start)
-  (setq my-home-dir (expand-file-name "~"))
-  (setq user-emacs-directory (concat my-home-dir "/.spacemacs.d/"))
-  (defvar e:public-directory   (expand-file-name "config-public/"   user-emacs-directory))
-  (defvar e:private-directory  (expand-file-name "config-private/"  user-emacs-directory))
-  (defvar e:pubiorg (concat e:public-directory "public-init.org"))
-  (defvar e:priiorg (concat e:private-directory "private-init.org"))
-  (defvar e:pubiel (concat e:public-directory "public-init.el"))
-  (defvar e:priiel (concat e:private-directory "private-init.el"))
 
-  ;; tangle without actually loading org
-  (when (or (file-newer-than-file-p e:pubiorg e:pubiel)
-            (file-newer-than-file-p e:priiorg e:priiel))
-    (call-process
-     (concat invocation-directory invocation-name)
-     nil nil t
-     "-q" "--batch" "--eval" "(require 'ob-tangle)"
-     "--eval" (format "(org-babel-tangle-file \"%s\")" e:pubiorg))
-    (call-process
-     (concat invocation-directory invocation-name)
-     nil nil t
-     "-q" "--batch" "--eval" "(require 'ob-tangle)"
-     "--eval" (format "(org-babel-tangle-file \"%s\")" e:priiorg)))
-  (if (file-exists-p e:pubiel) (load-file e:pubiel))
-  (if (file-exists-p e:priiel) (load-file e:priiel))
-
-  ;(let ((public-init (expand-file-name "public-init.org" e:public-directory)))
-  ;  (when (file-exists-p public-init)
-  ;    (org-babel-load-file public-init)))
-
-  ;(let ((private-init (expand-file-name "private-init.org" e:private-directory)))
-  ;  (when (file-exists-p private-init)
-  ;    (org-babel-load-file private-init)))
-  (defvar outline-minor-mode-prefix "\M-#")
+  ;; org-protocol (this must go here and cannot go in the user-config section)
+  (server-start)
+  ; FIXME try to tangle as this example (I couldn't make it to work)
+  ; Source: https://www.reddit.com/r/emacs/comments/7ntc6p/spacemacs_configuration_in_a_structured_orgmode/
   )
 
 (defun dotspacemacs/user-load ()
@@ -555,6 +526,11 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  (setq my-home-dir (expand-file-name "~"))
+  (setq user-emacs-directory (concat my-home-dir "/.spacemacs.d/"))
+  (defvar e:public-directory   (expand-file-name "config-public/"   user-emacs-directory))
+  (defvar e:private-directory  (expand-file-name "config-private/"  user-emacs-directory))
+
   (let ((public-config (expand-file-name "public-config.org" e:public-directory)))
     (when (file-exists-p public-config)
       (org-babel-load-file public-config)))
