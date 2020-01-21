@@ -507,6 +507,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   ;; org-protocol (this must go here and cannot go in the user-config section)
   (server-start)
+  (setq vc-follow-symlinks t) ;; do not ask question about following symlinks
   ; FIXME try to tangle as this example (I couldn't make it to work)
   ; Source: https://www.reddit.com/r/emacs/comments/7ntc6p/spacemacs_configuration_in_a_structured_orgmode/
   )
