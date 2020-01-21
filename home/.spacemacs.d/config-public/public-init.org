@@ -1,0 +1,12 @@
+#+TITLE: Vonpupp's Spacemacs initialization (user-init)
+#+STARTUP: overview
+#+STARTUP: indent
+
+* Spacemacs initialization
+** Org-protocol
+#+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-init.el
+;;(server-start)
+(message "Loaded public-init")
+#+END_SRC
+
+#+RESULTS:
