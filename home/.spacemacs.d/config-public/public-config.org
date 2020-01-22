@@ -383,13 +383,21 @@ Doc: https://stackoverflow.com/questions/51006855/open-mp4-files-from-orgmode
 #+END_SRC
 
 ** DTK                                                          :thirdparty:
-Doc: https://github.com/vonpupp/diatheke.el
+Doc: https://github.com/dtk01/dtk
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   ;;(add-to-list 'load-path "~/.spacemacs.d/thirdparty/diatheke.el")
   ;;(require 'diatheke)
   (add-to-list 'load-path "~/.spacemacs.d/thirdparty/dtk")
   (require 'dtk)
+
+  (use-package dtk
+    :bind (("C-c B" . dtk-bible))
+    :custom
+    (dtk-default-module "nvi")
+    (dtk-default-module-category "Biblical Texts")
+    (dtk-word-wrap t)
+    )
 #+END_SRC
 
 ** Novel
