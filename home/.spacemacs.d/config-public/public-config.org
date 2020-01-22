@@ -3,23 +3,41 @@
 #+STARTUP: indent
 
 * Spacemacs configuration
+:PROPERTIES:
+:ID:       2b8525ec-88bb-468b-aa16-1532a9377768
+:END:
 ** Org-protocol
+:PROPERTIES:
+:ID:       18e93cfd-9cbc-48a1-a6cf-d448dc47781e
+:END:
 *** Usage
-Use the following extensions:
-- Chrome: [[https://chrome.google.com/webstore/detail/org-capture/kkkjlfejijcjgjllecmnejhogpbcigdc]]
-- Firefox: [[https://addons.mozilla.org/en-US/firefox/addon/org-capture/]]
-
-Once installed an icon on the top of the browser should appear. To setup the
-handler and the templates read: [[https://github.com/sprig/org-capture-extension]]
-
-The '(server-start)' is needed under the 'user-init()' function on the init.el file.
+:PROPERTIES:
+:ID:       8d1c3850-7c34-4bad-8be1-35c4e630311e
+:END:
+- [[id:5f48cafd-14d1-40e0-ae00-77b35d8542ef][Capturing using templates]]
 
 *** Config
+:PROPERTIES:
+:ID:       5b3d233c-20cd-4c1a-ae47-366ed903000f
+:END:
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   (require 'org-protocol)
 #+END_SRC
 
 ** Org-babel
+:PROPERTIES:
+:ID:       0ca4afa9-8ad5-448f-85e7-53cb56dfacb5
+:END:
+*** Usage
+:PROPERTIES:
+:ID:       5a6a5947-a0bb-46a9-9de0-4be542e04b80
+:END:
+Check [[https://github.com/dfeich/org-babel-examples]]
+
+*** Config
+:PROPERTIES:
+:ID:       e5ea7d56-1ece-407c-aafc-067c6169ca51
+:END:
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   (org-babel-do-load-languages
    (quote org-babel-load-languages)
@@ -33,7 +51,6 @@ The '(server-start)' is needed under the 'user-init()' function on the init.el f
      (gnuplot . t)
      (latex . t)
      (ledger . t)
-     ;(ly . t)
      (matlab . t)
      (org . t)
      (plantuml . t)
@@ -41,26 +58,47 @@ The '(server-start)' is needed under the 'user-init()' function on the init.el f
      (shell . t)
      (sql . t)
      (sqlite . t)
+     ;(ly . t)
   )))
 #+END_SRC
 
 ** Org-mode
+:PROPERTIES:
+:ID:       e7b3db64-cfa8-4a96-81d2-b200e791831e
+:END:
+*** Org paths and important files
+:PROPERTIES:
+:ID:       7f5aaee2-5b0e-40d6-ab3e-da5c07bf1d9f
+:END:
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
-  ;; PATH AND IMPORTANT FILES
   (if (memq window-system '(w32))
       (setq my-home-dir "C:/Users/av")
     (setq my-home-dir (expand-file-name "~")))
   (setq org-directory (concat my-home-dir "/org/"))
-  (setq org-default-capture-file (concat org-directory "capture.org"))
+#+END_SRC
 
-  ;; MODULES
+*** Org modules
+:PROPERTIES:
+:ID:       1c6970ca-fb59-468f-b1f0-937237fee014
+:END:
+#+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   (setq org-modules (quote (org-habit)))
   (add-to-list 'org-modules 'org-protocol)
+#+END_SRC
 
-  ;; LOG
+*** Org log drawer
+:PROPERTIES:
+:ID:       d3899946-47fc-4cde-8c69-b20863ba62d9
+:END:
+#+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   (setq org-log-into-drawer "LOGBOOK")
+#+END_SRC
 
-  ;; AGENDA
+*** Org agenda
+:PROPERTIES:
+:ID:       927806aa-8921-432c-832d-dff6d83563f1
+:END:
+#+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   (setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
   ;; Doc: https://stackoverflow.com/a/29905161/1332764
   (setq org-agenda-include-diary t)
@@ -103,16 +141,81 @@ The '(server-start)' is needed under the 'user-init()' function on the init.el f
                   ((org-agenda-overriding-header "Relating tag"))))
       nil nil)
   )))
+#+END_SRC
 
-  ;; REFILE
+*** Org refile
+:PROPERTIES:
+:ID:       49443086-0929-4ff9-9227-f63b99f0545e
+:END:
+#+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   (setq org-refile-targets (quote ((org-agenda-files :level . 1))))
   (setq org-refile-use-outline-path (quote full-file-path))
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
+#+END_SRC
 
-  ;; ID
+*** Org ids snippets
+:PROPERTIES:
+:ID:       3f14d0b5-cfef-4fe4-84de-59c6cc4a02cf
+:END:
+This snippet creates an id for each headline in org-mod
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
+  (defun my/org-add-ids-to-headlines-in-file ()
+    "Add ID properties to all headlines in the current file which
+  do not already have one."
+    (interactive)
+    (org-map-entries 'org-id-get-create))
+
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook 'my/org-add-ids-to-headlines-in-file nil 'local)))
+#+END_SRC
+
+This snippet copies the id to the killring (F5) to be easy to reference sections
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
+  (defun my/copy-id-to-clipboard() "Copy the ID property value to killring,
+  if no ID is there then create a new unique ID.
+  This function works only in org-mode buffers.
+
+  The purpose of this function is to easily construct id:-links to
+  org-mode items. If its assigned to a key it saves you marking the
+  text and copying to the killring."
+    (interactive)
+    (when (eq major-mode 'org-mode) ; do this only in org-mode buffers
+      (setq mytmpid (funcall 'org-id-get-create))
+      (kill-new mytmpid)
+      (message "Copied %s to killring (clipboard)" mytmpid)
+         ))
+
+  ;; Check: https://emacs.stackexchange.com/questions/35283/in-spacemacs-how-to-customize-keybindings-that-are-condition-on-language-file
+  (define-key org-mode-map [f5] 'my/copy-id-to-clipboard)
+  (global-set-key [M-f1] 'my/copy-id-to-clipboard)
+#+END_SRC
+
+*** Org id-locations
+:PROPERTIES:
+:ID:       15a3771a-e002-4666-bf44-0602110c0fcc
+:END:
+#+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
+    ;; ID
+  ;; Use custom ID if present, otherwise create a new one when trying to
+  ;; resolve links
+  (setq org-id-link-to-org-use-id
+        'create-if-interactive-and-no-custom-id)
+
+  (add-hook 'org-insert-heading-hook 'org-id-get-create)
+  (add-hook 'org-after-todo-state-change-hook 'org-id-get-create)
+  (add-hook 'org-after-tags-change-hook 'org-id-get-create)
+
   (setq org-id-locations-file (concat org-directory ".org-id-locations"))
+#+END_SRC
 
-  ;; JOURNAL
+*** Org journal
+:PROPERTIES:
+:ID:       ebeaa5f7-7e78-420d-b248-7a19a40075e6
+:END:
+#+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bemacs/org#org-journal-support
   (setq org-journal-dir (concat org-directory "journal/"))
   (setq org-journal-file-format "%Y-%m-%d")
@@ -122,7 +225,13 @@ The '(server-start)' is needed under the 'user-init()' function on the init.el f
   (setq org-journal-time-prefix "* ")
   (setq org-journal-time-format "%Y-%m-%d %H:%M")
   (setq org-journal-time-format "%H:%M")
+#+END_SRC
 
+*** Org states workflow
+:PROPERTIES:
+:ID:       752ff35c-e847-42ee-acf8-300ee0fde3ed
+:END:
+#+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   ;; STATES
   ;; TIP: ~M-x org-mode-restart~ refreshes the org-mode cache
   (setq org-todo-keywords '((type "TODO(t/!)" "SOMEDAY(s/!)" "NEXT(n/!)" "WAITING(w@/!)" "PROJ(p)" "REPEAT(r/!)" "MEETING(m/!)" "|" "DONE(d)" "CANCELLED(c@/!)" "SKIPPED(k@/!)")))
@@ -130,7 +239,13 @@ The '(server-start)' is needed under the 'user-init()' function on the init.el f
   ;;   (sequence "TODO(t/!)" "NEXT(n/!)" "|" "DONE(d/!)")
   ;;   (sequence "HABIT(x)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING")
   ;; ))
+#+END_SRC
 
+*** Org tags
+:PROPERTIES:
+:ID:       b3d83cf2-0fd4-4811-a6ab-4fcb80396fe9
+:END:
+#+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   ;; TAGS
   (setq org-tag-persistent-alist (quote (
     ("@home" . ?h)
@@ -164,7 +279,13 @@ The '(server-start)' is needed under the 'user-init()' function on the init.el f
     ("living" . ?v)
     (:endgrouptag)
   )))
+#+END_SRC
 
+*** Org faces (todo and tags)
+:PROPERTIES:
+:ID:       f52d1764-e3df-4fb3-a508-9182d56a1eb7
+:END:
+#+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   ;; FACES
   (setq org-todo-keyword-faces
         '(("TODO" . (:foreground "DarkOrange1" :weight bold))
@@ -179,6 +300,31 @@ The '(server-start)' is needed under the 'user-init()' function on the init.el f
           ("MIND" . (:foreground "forest green"))
           ("BODY" . (:foreground "yellow"))
          ))
+#+END_SRC
+
+*** Org capture templates
+:PROPERTIES:
+:ID:       5f48cafd-14d1-40e0-ae00-77b35d8542ef
+:END:
+**** Usage
+:PROPERTIES:
+:ID:       02027445-a99d-4583-961c-04c47f94e7dd
+:END:
+Use the following extensions:
+- Chrome: [[https://chrome.google.com/webstore/detail/org-capture/kkkjlfejijcjgjllecmnejhogpbcigdc]]
+- Firefox: [[https://addons.mozilla.org/en-US/firefox/addon/org-capture/]]
+
+Once installed an icon on the top of the browser should appear. To setup the
+handler and the templates read: [[https://github.com/sprig/org-capture-extension]]
+
+The '(server-start)' is needed under the 'user-init()' function on the init.el file.
+
+**** Config
+:PROPERTIES:
+:ID:       c01b085c-97a5-4402-9682-eb2ff474bb0b
+:END:
+#+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
+  (setq org-default-capture-file (concat org-directory "capture.org"))
 
   ;; Doc: https://github.com/sprig/org-capture-extension
   ;; (defun transform-square-brackets-to-round-ones(string-to-transform)
@@ -224,12 +370,24 @@ The '(server-start)' is needed under the 'user-init()' function on the init.el f
   :HoursWeek:  Get it automatically
   :END:" :empty-lines 1)
   ))
+#+END_SRC
 
+*** Org export backends
+:PROPERTIES:
+:ID:       86f93c3f-c1e4-49b1-beb7-66dc2a65efe2
+:END:
+#+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   ;; EXPORT
   (setq org-export-backends
    (quote
     (beamer html icalendar latex man odt freemind taskjuggler)))
+#+END_SRC
 
+*** Org misc
+:PROPERTIES:
+:ID:       c33e681b-e307-4a6c-9eb2-e3eb43d87f09
+:END:
+#+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   ;; ----------------------------------------------------------------
   ;; Org Misc
   ;; ----------------------------------------------------------------
@@ -248,12 +406,18 @@ The '(server-start)' is needed under the 'user-init()' function on the init.el f
 #+END_SRC
 
 ** Spell check
+:PROPERTIES:
+:ID:       2983cd9d-9485-477b-bede-71da1193ba01
+:END:
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   (setq spell-checking-enable-auto-dictionary t)
   (setq enable-flyspell-auto-completion t)
 #+END_SRC
 
 ** Pinentry
+:PROPERTIES:
+:ID:       9fd2b0b4-0ac0-48e2-8477-93594bf3d706
+:END:
 Doc: https://emacs.stackexchange.com/a/32882
 Doc: https://github.com/syl20bnr/spacemacs-elpa-mirror/blob/master/gnu/pinentry-readme.txt
 
@@ -262,6 +426,9 @@ Doc: https://github.com/syl20bnr/spacemacs-elpa-mirror/blob/master/gnu/pinentry-
 #+END_SRC
 
 ** Calendar
+:PROPERTIES:
+:ID:       f2a629d6-d76c-4345-b70f-c8fd7ae33688
+:END:
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   ;;(setq holiday-christian-holidays nil)
   ;;(setq holiday-hebrew-holidays t)
@@ -291,27 +458,40 @@ Doc: https://github.com/syl20bnr/spacemacs-elpa-mirror/blob/master/gnu/pinentry-
 #+END_SRC
 
 ** Python
+:PROPERTIES:
+:ID:       6280727d-a6bc-40b2-82bd-9ad6c43e1cf2
+:END:
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "--simple-prompt -i")
 #+END_SRC
 
 ** Plantuml
+:PROPERTIES:
+:ID:       e4daaf62-5d72-4a60-8e48-f3cb7b9b393f
+:END:
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   (setq org-plantuml-jar-path
     (expand-file-name "/opt/plantuml/plantuml.jar"))
 #+END_SRC
 
 ** Auto documentation with helm-descbinds-mode
+:PROPERTIES:
+:ID:       4ae46422-1f3f-4957-919c-3aadf053a0ba
+:END:
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   ;; (require 'helm-descbinds)
   ;; (helm-descbinds-mode)
 #+END_SRC
 
 ** Misc
+:PROPERTIES:
+:ID:       e37a0002-5c81-46a2-8ab4-07a34225a559
+:END:
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   ;; Do not ask for confirmation on some file configs
   (put 'org-todo-keyword-faces 'safe-local-variable #'listp)
+  (put '(eval flyspell-buffer) 'safe-local-variable #'listp)
   (add-to-list 'safe-local-variable-values
                '(eval flyspell-buffer))
 
@@ -329,24 +509,36 @@ Doc: https://github.com/syl20bnr/spacemacs-elpa-mirror/blob/master/gnu/pinentry-
 #+END_SRC
 
 ** Org-impress                                                  :thirdparty:
+:PROPERTIES:
+:ID:       2cac38bc-6d2b-4ede-870c-953662c6ed4b
+:END:
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   (add-to-list 'load-path "~/.spacemacs.d/thirdparty/org-impress-js.el")
   (require 'ox-impress-js)
 #+END_SRC
 
 ** Org-reveal                                                   :thirdparty:
+:PROPERTIES:
+:ID:       ec770458-02d8-41fc-9012-0a5cc980abd2
+:END:
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   ;;(add-to-list 'load-path "~/.spacemacs.d/thirdparty/org-reveal")
   ;;(require 'ox-reveal)
 #+END_SRC
 
 ** Org-re-reveal                                                :thirdparty:
+:PROPERTIES:
+:ID:       e3ef5095-d0f9-40d2-a81c-a22d38c9449f
+:END:
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   (add-to-list 'load-path "~/.spacemacs.d/thirdparty/org-re-reveal")
   (require 'org-re-reveal)
 #+END_SRC
 
 ** Outshine (Org-mode bullets in Beancount)                     :thirdparty:
+:PROPERTIES:
+:ID:       66cd304d-0dad-43c2-a153-eb48e2764cf5
+:END:
 Doc: https://github.com/syl20bnr/spacemacs/issues/5258
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
@@ -355,12 +547,18 @@ Doc: https://github.com/syl20bnr/spacemacs/issues/5258
   (add-hook 'beancount-mode-hook 'outshine-mode)
 #+END_SRC
 ** PDF Tools (org-noter)                                        :thirdparty:
+:PROPERTIES:
+:ID:       7e097171-9a60-4ed1-9a2b-3f9b2e41f071
+:END:
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   (add-to-list 'load-path "~/.spacemacs.d/thirdparty/pdf-tools-org")
   (require 'pdf-tools-org)
 #+END_SRC
 
 ** Edit server                                                  :thirdparty:
+:PROPERTIES:
+:ID:       e9bc2073-0307-408c-aa49-329a3271e1ae
+:END:
 Doc: https://www.emacswiki.org/emacs/Edit_with_Emacs
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
@@ -374,6 +572,9 @@ Doc: https://www.emacswiki.org/emacs/Edit_with_Emacs
 #+END_SRC
 
 ** Openwith                                                     :thirdparty:
+:PROPERTIES:
+:ID:       f7d43e3b-5b8e-4c70-994f-631be17b0565
+:END:
 Doc: https://stackoverflow.com/questions/51006855/open-mp4-files-from-orgmode
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
@@ -383,8 +584,10 @@ Doc: https://stackoverflow.com/questions/51006855/open-mp4-files-from-orgmode
 #+END_SRC
 
 ** DTK                                                          :thirdparty:
+:PROPERTIES:
+:ID:       184236d2-a056-44db-a369-67cb9a8aff63
+:END:
 Doc: https://github.com/dtk01/dtk
-
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   ;;(add-to-list 'load-path "~/.spacemacs.d/thirdparty/diatheke.el")
   ;;(require 'diatheke)
@@ -401,13 +604,42 @@ Doc: https://github.com/dtk01/dtk
 #+END_SRC
 
 ** Novel
+:PROPERTIES:
+:ID:       34cdbf57-ee91-4474-a508-071b1a9e08dd
+:END:
 
 * Tasks [0%] [0/3]                                                 :noexport:
+:PROPERTIES:
+:ID:       c268a475-d7d6-4970-a40b-548184846245
+:END:
+** TODO FIX which files are within the agenda
+:PROPERTIES:
+:ID:       9ecb4807-a028-4be3-896a-f00e75722a00
+:END:
+** TODO Review which files are able to refile
+:PROPERTIES:
+:ID:       b11d3f86-a7d1-41cf-ad79-2e566c083886
+:END:
 ** TODO ox-json
+:PROPERTIES:
+:ID:       56968c4a-c4a1-4479-ad5d-2c1ac61c103e
+:END:
 - https://www.reddit.com/r/emacs/comments/ccwl4r/i_made_a_json_export_back_end_for_org_mode/
 ** TODO ob-translate
+:PROPERTIES:
+:ID:       13c37064-a5d2-4d18-9f41-479cde518461
+:END:
 - https://github.com/krisajenkins/ob-translate
 ** TODO ob-browser
+:PROPERTIES:
+:ID:       4c62d1f7-3dda-48ed-80b4-0de6ff162a7c
+:END:
 - https://github.com/krisajenkins/ob-browser
 ** FIX edit-server
+:PROPERTIES:
+:ID:       b6fd6258-ba41-4951-bbca-5a5f807e59b9
+:END:
 * Build                                                            :noexport:
+:PROPERTIES:
+:ID:       6550dd2a-6970-4da6-a798-44c7e5aeb189
+:END:
