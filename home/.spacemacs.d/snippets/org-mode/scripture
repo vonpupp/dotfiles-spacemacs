@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+#name : scripture
+#key : scripture
+#contributor : Albert De La Fuente Vigliotti
+# --
+#+ATTR_LATEX: :options {}
+#+begin_scripture
+$0
+#+end_scripture
