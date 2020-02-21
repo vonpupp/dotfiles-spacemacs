@@ -338,16 +338,11 @@ The '(server-start)' is needed under the 'user-init()' function on the init.el f
     '(
       ;; Doc: https://github.com/sprig/org-capture-extension
       ;; Doc: https://gist.github.com/cjp/64ac13f5966456841c197f70c7d3a53a
-      ("p" "Protocol" entry (file+headline "~/org/capture.org" "Inbox")
-       "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-      ("L" "Protocol Link" entry (file+headline "~/org/capture.org" "Inbox")
-       "* %? [[%:link][%:description]] \nCaptured On: %U")
-
-      ;; ;; Doc: https://github.com/sprig/org-capture-extension
-      ;; ("p" "Protocol" entry (file+headline ,(concat org-directory "capture.org") "Inbox")
-      ;;  "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-      ;; ("L" "Protocol Link" entry (file+headline ,(concat org-directory "capture.org") "Inbox")
-      ;;  "* %? [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n")
+      ("p" "Protocol")
+      ("pb" "Blog post" entry (file+headline "~/org/capture.org" "Inbox")
+        "* [[%:description][%i]]\n- Source: %:description\n- Title: %i\n- Captured on: %u\n")
+      ("pt" "Url with written title" entry (file+headline "~/org/capture.org" "Inbox")
+        "* [[%:description][%^{Title}]]\n- Source: %:description\n- Title: %i\n- Captured on: %u\n")
 
       ;; Templates for the TASKS keyword sequence
       ("t" "Tasks")
@@ -635,6 +630,26 @@ Doc: https://github.com/dtk01/dtk
 :ID:       4c62d1f7-3dda-48ed-80b4-0de6ff162a7c
 :END:
 - https://github.com/krisajenkins/ob-browser
+** TODO org-super-agenda
+:PROPERTIES:
+:ID:       a1341cf3-75c7-44a9-a9a1-4a95e5c91e3e
+:END:
+** TODO org-kanban
+:PROPERTIES:
+:ID:       86cd7882-01c6-416a-bab8-2cec3fb53168
+:END:
+- https://github.com/lijigang/ljg-dotfile/blob/master/spacemacs-config.org
+** TODO poet theme for writing?
+:PROPERTIES:
+:ID:       ca3c39e4-d4a2-40bc-ac3c-321cd1a61e1a
+:END:
+** TODO [[https://org-roam.readthedocs.io/en/latest/][Org-Roam]]
+   :PROPERTIES:
+   :ID:       a2e6b174-4f41-4a57-a6ab-0672cf6eb2ad
+   :END:
+ - Source: https://org-roam.readthedocs.io/en/latest/
+ - Title: Org-Roam: Roam + Org-Mode = ♥
+ - Captured on: [2020-02-21 Fri]
 ** FIX edit-server
 :PROPERTIES:
 :ID:       b6fd6258-ba41-4951-bbca-5a5f807e59b9
