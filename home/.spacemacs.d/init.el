@@ -67,6 +67,12 @@ This function should only modify configuration layer settings."
              python-sort-imports-on-save t
              python-fill-column 80
              python-pipenv-activate t)
+     (wakatime :variables
+               wakatime-api-key (with-temp-buffer
+                 (insert-file-contents "~/.wakatimekey")
+                 (buffer-string))
+               ;; use the actual wakatime path
+               wakatime-cli-path "~/.local/bin/wakatime")
      syntax-checking
      version-control
      git
