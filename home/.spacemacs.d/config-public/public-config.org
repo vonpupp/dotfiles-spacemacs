@@ -6,6 +6,16 @@
 :PROPERTIES:
 :ID:       2b8525ec-88bb-468b-aa16-1532a9377768
 :END:
+** Extra documentation
+*** Yasnippets
+Doc: https://practicalli.github.io/spacemacs/snippets/add-your-own-snippets.html
+
+Select a region and ~SPC SPC helm-yas-create-snippet-on-region~. Create a
+snippet and use the the 'key' attribute followed with ~M-/~
+*** Android
+- Termux + emacs (https://news.ycombinator.com/item?id=13829135)
+- https://organice.200ok.ch/sample
+- https://play.google.com/store/apps/details?id=com.orgzly&hl=en
 ** Org-protocol
 :PROPERTIES:
 :ID:       18e93cfd-9cbc-48a1-a6cf-d448dc47781e
