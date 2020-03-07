@@ -7,12 +7,21 @@
 :ID:       2b8525ec-88bb-468b-aa16-1532a9377768
 :END:
 ** Extra documentation
+:PROPERTIES:
+:ID:       eda9cd70-422c-4f1f-89d0-0a8987daa061
+:END:
 *** Yasnippets
+:PROPERTIES:
+:ID:       a711e7dd-7785-424f-b0a2-3eab357a530e
+:END:
 Doc: https://practicalli.github.io/spacemacs/snippets/add-your-own-snippets.html
 
 Select a region and ~SPC SPC helm-yas-create-snippet-on-region~. Create a
 snippet and use the the 'key' attribute followed with ~M-/~
 *** Android
+:PROPERTIES:
+:ID:       aa1c762a-2a11-4d62-acc3-322eb85280de
+:END:
 - Termux + emacs (https://news.ycombinator.com/item?id=13829135)
 - https://organice.200ok.ch/sample
 - https://play.google.com/store/apps/details?id=com.orgzly&hl=en
@@ -348,11 +357,10 @@ The '(server-start)' is needed under the 'user-init()' function on the init.el f
     '(
       ;; Doc: https://github.com/sprig/org-capture-extension
       ;; Doc: https://gist.github.com/cjp/64ac13f5966456841c197f70c7d3a53a
-      ("p" "Protocol")
-      ("pb" "Blog post" entry (file+headline "~/org/capture.org" "Inbox")
-        "* [[%:description][%i]]\n- Source: %:description\n- Title: %i\n- Captured on: %u\n")
-      ("pt" "Url with written title" entry (file+headline "~/org/capture.org" "Inbox")
-        "* [[%:description][%^{Title}]]\n- Source: %:description\n- Title: %i\n- Captured on: %u\n")
+      ("p" "Protocol" entry (file+headline "~/org/capture.org" "Inbox")
+        "* [[%:link][%:description]]\n- Source: %:link\n- Title: %:description\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n")
+      ("L" "Browser link" entry (file+headline "~/org/capture.org" "Inbox")
+        "* [[%:link][%:description]]\n- Source: %:link\n- Title: %:description\n- Captured on: %u\n")
 
       ;; Templates for the TASKS keyword sequence
       ("t" "Tasks")
@@ -499,7 +507,7 @@ Doc: https://github.com/syl20bnr/spacemacs-elpa-mirror/blob/master/gnu/pinentry-
 #+BEGIN_SRC emacs-lisp :tangle ~/.spacemacs.d/config-public/public-config.el
   ;; Do not ask for confirmation on some file configs
   (put 'org-todo-keyword-faces 'safe-local-variable #'listp)
-  (put '(eval flyspell-buffer) 'safe-local-variable #'listp)
+  ;(put '(eval flyspell-buffer) 'safe-local-variable #'listp)
   (add-to-list 'safe-local-variable-values
                '(eval flyspell-buffer))
 
