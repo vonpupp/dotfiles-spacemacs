@@ -104,25 +104,18 @@ This function should only modify configuration layer settings."
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
-                                      ;; Org contrib
+                                      bbdb
                                       org-plus-contrib
-                                      ;; Keychain
                                       keychain-environment
                                       pinentry
-                                      ;; org-mode
                                       org-journal
                                       org-noter
                                       org-beautify-theme
-                                      ;; exporters
                                       ;;ox-reveal
-                                      ;; openwith
                                       openwith
-                                      ;; nov.el
-                                      nov
-                                      ;; Diatheke
-                                      dtk
-                                      ;; Beancount
-                                      outshine
+                                      nov                       ;; nov.el
+                                      dtk                       ;; Diatheke
+                                      outshine                  ;; Beancount
                                       (beancount :location (recipe
                                                             :fetcher bitbucket
                                                             :repo "blais/beancount"
@@ -498,9 +491,9 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-themes '(
                          ;; 1st: most readable and nice colors
                          ;; Problems with ranger and too much orange
-                         subatomic
+                         ;subatomic
                          ;; 2nd: readable and quite nice
-                         flatland
+                         ;flatland
                          ;; 3rd: Readable and ok, not my favorite colors though, ranger colors ok
                          heroku
                          )
