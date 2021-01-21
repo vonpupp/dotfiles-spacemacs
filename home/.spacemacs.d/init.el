@@ -33,14 +33,58 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(shell-scripts
-     yaml
-     html
+   '(csv
+     csv
+     javascript
+     shell-scripts
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
+
+     ; CODING
+     git
+     debug
+     dash
+     syntax-checking
+     version-control
+     dap
+     lsp
+     (python :variables
+             python-backend 'lsp
+             python-lsp-server 'pyls
+             python-formatter 'yapf
+             python-test-runner '(pytest nose)
+             python-format-on-save nil
+             python-sort-imports-on-save t
+             python-fill-column 80
+             python-pipenv-activate t)
+     html
+     yaml
+
+     ; OS
+     docker
+     pass
+     neotree
+     ranger
+     tmux
+     (shell :variables
+            shell-default-shell 'shell
+            shell-default-height 30
+            shell-default-position 'bottom)
+
+     ; ORG
+     (org :variables
+          org-enable-org-journal-support t
+          org-enable-hugo-support t
+          org-enable-roam-support t)
+
+     ; READING
+     pdf
+     epub
+
+     ; EMACS
      helm
      (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
@@ -54,46 +98,26 @@ This function should only modify configuration layer settings."
                       )
      better-defaults
      emacs-lisp
-     markdown
      multiple-cursors
-     neotree
-     (org :variables
-          org-enable-org-journal-support t)
-     (shell :variables
-            shell-default-shell 'shell
-            shell-default-height 30
-            shell-default-position 'bottom)
-     ;; ----------------------------------------------------------------
-     ;; Other layers that I use
-     ;; ----------------------------------------------------------------
-     ranger
-     lsp
-     dap
-     (python :variables
-             python-backend 'lsp
-             python-formatter 'yapf
-             python-test-runner '(pytest nose)
-             python-format-on-save t
-             python-sort-imports-on-save t
-             python-fill-column 80
-             python-pipenv-activate t)
+
+     ; APPS
+     erc
+     notmuch
+
+     ; SERVICES
      (wakatime :variables
                wakatime-api-key (with-temp-buffer
-                 (insert-file-contents "~/.wakatimekey")
-                 (buffer-string))
+                                  (insert-file-contents "~/.wakatimekey")
+                                  (buffer-string))
                ;; use the actual wakatime path
-               wakatime-cli-path "~/.local/bin/wakatime")
-     syntax-checking
-     version-control
-     git
-     debug
-     dash
-     erc
+               wakatime-cli-path "/usr/bin/wakatime"
+               ;(setq wakatime-python-bin "/usr/bin/python")
+               )
+
+     ; WRITING
+     markdown
      spell-checking
      auto-completion
-     pdf
-     notmuch
-     tmux
      )
 
    ;; List of additional packages that will be installed without being
@@ -104,30 +128,73 @@ This function should only modify configuration layer settings."
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
-                                      bbdb
-                                      org-plus-contrib
+                                      ; System
                                       keychain-environment
                                       pinentry
+                                      git-timemachine
+                                      openwith
+                                      company
+
+                                      ; Code
+                                      eglot
+
+                                      ; Apps
+                                      anki-editor
+                                      bbdb
+
+                                      ; Org
+                                      org-plus-contrib
                                       org-journal
                                       org-noter
                                       org-beautify-theme
+                                      ; alpha-org
+                                      (alpha-org :location (recipe
+                                                            :fetcher github
+                                                            :repo "alphapapa/alpha-org"))
+                                      ; Org-ql
+                                      (org-ql :location (recipe
+                                                         :fetcher github
+                                                         :repo "alphapapa/org-ql"))
+
+                                      ; Org-roam
+                                      deft
+                                      (org-roam :location (recipe
+                                                           :fetcher github
+                                                           :repo "org-roam/org-roam"))
+                                      (org-roam :location (recipe
+                                                           :fetcher github
+                                                           :repo "org-roam/org-roam-server"))
                                       ;;ox-reveal
-                                      openwith
                                       nov                       ;; nov.el
-                                      dtk                       ;; Diatheke
-                                      outshine                  ;; Beancount
+
+                                      ; Beancount
+                                      outshine
                                       (beancount :location (recipe
-                                                            :fetcher bitbucket
-                                                            :repo "blais/beancount"
-                                                            :files ("editors/emacs/beancount.el")
+                                                            :fetcher github
+                                                            :repo "beancount/beancount-mode"
+                                                            :files ("beancount.el")
                                                             :config (progn (add-hook 'beancount-mode-hook #'outline-minor-mode))))
+
+                                      ; Blog
+                                      ox-hugo
+
+                                      ; Scriptures
+                                      dtk                       ;; Diatheke
+                                      (sword-to-org :location (recipe
+                                                               :fetcher github
+                                                               :repo "alphapapa/sword-to-org"))
                                       )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(
+                                    ;; Disable org-superstar as per Aug 1st due to bug on develop branch
+                                    org-superstar
+                                    ;lsp
+                                    ;lsp-mode
+                                    )
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -231,8 +298,12 @@ It should only modify the values of Spacemacs settings."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'.
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists '((recents . 10)
-                                (projects . 10))
+   dotspacemacs-startup-lists '(
+                                (agenda . 15)
+                                (todos . 15)
+                                ;(recents . 10)
+                                ;(projects . 10)
+                                )
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
@@ -565,9 +636,28 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
+ '(evil-want-Y-yank-to-eol nil)
+ '(helm-ag-base-command "rg --vimgrep --no-heading --smart-case")
+ '(hl-todo-keyword-faces
+   '(("TODO" . "#dc752f")
+     ("NEXT" . "#dc752f")
+     ("THEM" . "#2d9574")
+     ("PROG" . "#4f97d7")
+     ("OKAY" . "#4f97d7")
+     ("DONT" . "#f2241f")
+     ("FAIL" . "#f2241f")
+     ("DONE" . "#86dc2f")
+     ("NOTE" . "#b1951d")
+     ("KLUDGE" . "#b1951d")
+     ("HACK" . "#b1951d")
+     ("TEMP" . "#b1951d")
+     ("FIXME" . "#dc752f")
+     ("XXX+" . "#dc752f")
+     ("\\?\\?\\?+" . "#dc752f")))
  '(package-selected-packages
-   (quote
-    (flyspell-popup yaml-mode zeal-at-point yasnippet-snippets yapfify xterm-color ws-butler writeroom-mode visual-fill-column winum web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen unfill toc-org t agedit symon subatomic-theme string-inflection spaceline-all-the-icons spaceline powerline smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs ranger rainbow-delimiters pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pyvenv pip-requirements pinentry persp-mode pdf-tools tablist password-generator paradox spinner overseer orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-noter org-mime org-journal org-download org-bullets org-brain org-beautify-theme openwith open-junk-file nov esxml neotree nameless mwim multi-term move-text mmm-mode markdown-toc markdown-mode magit-svn magit-gitflow magit-popup macrostep lorem-ipsum live-py-mode link-hint keychain-environment indent-guide importmagic epc ctable concurrent deferred impatient-mode simple-httpd hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation heroku-theme helm-xref helm-themes helm-swoop helm-pydoc helm-purpose window-purpose imenu-list helm-projectile helm-org-rifle helm-notmuch notmuch helm-mode-manager helm-make helm-gitignore request helm-git-grep helm-flx helm-descbinds helm-dash helm-css-scss helm-company helm-c-yasnippet helm-ag haml-mode google-translate golden-ratio gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck flx-ido flx flatland-theme fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit transient git-commit with-editor evil-lisp-state evil-lion evil-indent-plus evil-iedit-state iedit evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens smartparens paredit evil-args evil-anzu anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks emmet-mode elisp-slime-nav editorconfig dumb-jump dtk doom-modeline eldoc-eval shrink-path all-the-icons memoize diff-hl define-word cython-mode counsel-projectile projectile counsel swiper ivy pkg-info epl company-web web-completion-data company-statistics company-anaconda company column-enforce-mode clean-aindent-mode centered-cursor-mode browse-at-remoteauto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed anaconda-mode pythonic f dash s aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-cor e ac-ispell auto-complete popup which-key use-package pcre2el org-plus-contrib hydra lv font-lock+ evil goto-chg undo-tree dotenv-mode diminish bind-map bind-key async))))
+   '(org-roam-server csv-mode alpha-org org-sticky-header org-sidebar org-make-toc general org-ql peg ov org-super-agenda ts utop tuareg caml seeing-is-believing rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rbenv rake ocp-indent ob-elixir mvn minitest meghanada maven-test-mode groovy-mode groovy-imports pcache flycheck-ocaml merlin flycheck-credo emojify emoji-cheat-sheet-plus dune company-emoji chruby bundler inf-ruby alchemist elixir-mode eglot project flymake eldoc xref beancount sword-to-org use-package-hydra deft tide typescript-mode tern nodejs-repl livid-mode skewer-mode js2-refactor multiple-cursors js2-mode js-doc import-js grizzl helm-gtags ggtags counsel-gtags add-node-modules-path helm-pass password-store auth-source-pass anki-editor ox-hugo bbdb flyspell-popup yaml-mode zeal-at-point yasnippet-snippets yapfify xterm-color ws-butler writeroom-mode visual-fill-column winum web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen unfill toc-org t agedit symon subatomic-theme string-inflection spaceline-all-the-icons spaceline powerline smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs ranger rainbow-delimiters pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pyvenv pip-requirements pinentry persp-mode pdf-tools tablist password-generator paradox spinner overseer orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-noter org-mime org-journal org-download org-bullets org-brain org-beautify-theme openwith open-junk-file nov esxml neotree nameless mwim multi-term move-text mmm-mode markdown-toc markdown-mode magit-svn magit-gitflow magit-popup macrostep lorem-ipsum live-py-mode link-hint keychain-environment indent-guide importmagic epc ctable concurrent deferred impatient-mode simple-httpd hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation heroku-theme helm-xref helm-themes helm-swoop helm-pydoc helm-purpose window-purpose imenu-list helm-projectile helm-org-rifle helm-notmuch notmuch helm-mode-manager helm-make helm-gitignore request helm-git-grep helm-flx helm-descbinds helm-dash helm-css-scss helm-company helm-c-yasnippet helm-ag haml-mode google-translate golden-ratio gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck flx-ido flx flatland-theme fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit transient git-commit with-editor evil-lisp-state evil-lion evil-indent-plus evil-iedit-state iedit evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens smartparens paredit evil-args evil-anzu anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks emmet-mode elisp-slime-nav editorconfig dumb-jump dtk doom-modeline eldoc-eval shrink-path all-the-icons memoize diff-hl define-word cython-mode counsel-projectile projectile counsel swiper ivy pkg-info epl company-web web-completion-data company-statistics company-anaconda company column-enforce-mode clean-aindent-mode centered-cursor-mode browse-at-remoteauto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed anaconda-mode pythonic f dash s aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-cor e ac-ispell auto-complete popup which-key use-package pcre2el org-plus-contrib hydra lv font-lock+ evil goto-chg undo-tree dotenv-mode diminish bind-map bind-key async)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
